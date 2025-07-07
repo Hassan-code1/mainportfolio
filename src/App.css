@@ -1,0 +1,8 @@
+.app{
+    /* background-color: rgba(245, 245, 220, 0.121); */
+    background-color: rgb(9,9,12);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,0 +1,62 @@
+.skillnorm-container{
+    background-color: rgb(9,9,12);
+    color: rgba(255, 255, 255, 0.859);
+    width: 100%;
+    margin-top: 80px;
+    padding-left: 10px;
+    font-family: sans-serif;
+    margin-bottom: 40px;
+}
+.skillnorm-title{
+    font-size: 32px;
+    font-weight: 600;
+    font-family: Calibri;
+}
+.skillnorm-para{
+    font-size: 16px;
+    color: rgb(141,141,141);
+    margin-bottom: 10px;
+}
+.skillnorm-heading{
+    font-size: 18px;
+    font-weight: 600;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.skillnormals{
+    background-color: rgb(9,9,12);
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    padding-left: 10px;
+}
+.skillnormal{
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+    padding: 4px 4px;
+    color: rgb(141,141,141);
+}
+.skillnormal:hover{
+    width: 65px;
+    height: 80px;
+    border: 2px solid rgba(141, 141, 141, 0.29);
+    border-radius: 12px;
+    color: white;
+}
+.skillnormal-img{
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+.skillnormal-text{
+    font-size: 14px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: 200;
+
+}
