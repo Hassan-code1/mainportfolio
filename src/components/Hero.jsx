@@ -45,9 +45,9 @@ export default function Hero() {
           Algorithms, and Competitive Programming, active on LeetCode, Codeforces, and CodeChef.
         </div>
         <div className="hero-links">
-          <a className="resume-link">
+          <a className="resume-link" href='https://github.com/Hassan-code1'>
             <FontAwesomeIcon icon={faDownload} style={{color: "#09090b", fontSize:"14px"}} />
-            <a href='https://github.com/Hassan-code1' >Resume</a>
+            <p>Resume</p>
           </a>
           <a href="https://github.com/Hassan-code1" className='social-links'>
             <FontAwesomeIcon icon={faSquareGithub} style={{color: "rgb(255,255,255)",}} />
