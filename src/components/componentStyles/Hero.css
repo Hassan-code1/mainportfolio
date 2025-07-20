@@ -36,9 +36,8 @@
 .hero-links{
     margin-top: 20px;
     display: flex;
-    justify-content: flex-start;
     align-items: center;
-    gap: 20px;
+    gap: 16px;
 }
 .resume-link{
     background-color: white;
@@ -58,9 +57,16 @@
 }
 .social-links{
     font-size: 28px;
+    width: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .social-links:hover{
-    font-size: 26px;
+    font-size: 34px;
+}
+.social-links:active{
+    font-size: 30px;
 }
 @media(max-width: 768px){
     .hero{
@@ -85,5 +91,8 @@
     }
     .hero-links{
         margin-left: 10px;
+    }
+    .social-links{
+        font-size: 34px;
     }
 }

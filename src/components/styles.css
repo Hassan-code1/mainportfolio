@@ -3,11 +3,6 @@ html, body{
     border: border-box;
     color: white;
 }
-/* .navbar-container{
-    display: flex;
-    justify-content: center;
-    background-color: rgba(240, 255, 244, 0.095);
-} */
 .navbar{
     display: flex;
     justify-content: space-between;
@@ -15,7 +10,7 @@ html, body{
     padding: 10px 10px;
     align-items: center;
     background-color: rgba(9,9,11,1);
-
+    position: relative;
 }
 .navbar-logo{
     font-size: x-large;
@@ -36,37 +31,45 @@ html, body{
     text-decoration: underline;
     cursor: pointer;
 }
-@media(max-width: 768px){
+.hamburger{
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+}
+@media(max-width: 1000px){
 html, body{
     margin: 0;
     border: border-box;
     color: white;
 }
-.navbar-container{
+/* .navbar-container{
     display: flex;
     justify-content: center;
     background-color: rgb(9,9,12);
-}
+} */
 .navbar{
-    display: flex;
-    justify-content: space-between;
     width: 100%;
     padding: 10px 20px;
-    align-items: center;
-    background-color: rgb(9,9,12);
-
-}
-.navbar-logo{
-    font-size: x-large;
-    font-family: Helvetica;
-    font-weight: 600;
 }
 .nav-links{
-    display: flex;
-    justify-content: space-between;
-    background-color: rgb(9,9,12);
-    width: 70%;
-    padding: 4px 10px;
+    display: none;
+    flex-direction: column;
     gap: 10px;
+    background-color: #111;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    padding: 20px 0;
+    z-index: 10;
+    color: aliceblue;
+}
+.nav-links.active{
+    display: flex;
+}
+.hamburger{
+    display: block;
 }
 }

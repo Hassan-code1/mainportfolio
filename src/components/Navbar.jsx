@@ -1,8 +1,12 @@
 import React from 'react'
 import gsap from 'gsap'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import {Menu, X} from "lucide-react";
+
 const Navbar = () => {
+    const [isMenuOpen, setMenuOpen] = useState(false);
     const LogoRef = useRef(null);
+
     useEffect(()=>{
         gsap.fromTo(LogoRef.current,
             {
@@ -14,20 +18,63 @@ const Navbar = () => {
             }
         )
     },[])
+
+    const toggleMenu = () => {
+        setMenuOpen(!isMenuOpen);
+        console.log(isMenuOpen, document.querySelector('.nav-links')?.className);
+    }
+
   return (
-        <div className='navbar'>
-            <div className="navbar-logo">
-                <a ref={LogoRef} href='/'>Hassan</a>
-            </div>
-            <div className='nav-links'>
-                <a href='#about' className='nav-link'>About</a>
-                <a href='#projects' className='nav-link'>Projects</a>
-                <a href='#education' className='nav-link'>Education</a>
-                <a href='#contact' className='nav-link'>Contact</a>
-            </div>
-        </div>
+    <div className="navbar">
+      <div className="navbar-logo">
+        <a ref={LogoRef} href="/">
+          Hassan
+        </a>
+      </div>
+      <div className={`nav-links ${isMenuOpen ? "active" : ""}`}>
+        <a
+          href="#about"
+          className="nav-link"
+          onClick={() => {
+            setMenuOpen(false);
+          }}
+        >
+          About
+        </a>
+        <a
+          href="#projects"
+          className="nav-link"
+          onClick={() => {
+            setMenuOpen(false);
+          }}
+        >
+          Projects
+        </a>
+        <a
+          href="#education"
+          className="nav-link"
+          onClick={() => {
+            setMenuOpen(false);
+          }}
+        >
+          Education
+        </a>
+        <a
+          href="#contact"
+          className="nav-link"
+          onClick={() => {
+            setMenuOpen(false);
+          }}
+        >
+          Contact
+        </a>
+      </div>
+      <div className="hamburger" onClick={toggleMenu}>
+        {isMenuOpen ? <X size={28} /> : <Menu size={28}/>}
+      </div>
+    </div>
     // </div>
-  )
+  );
 }
 
 export default Navbar
