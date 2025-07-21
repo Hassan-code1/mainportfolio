@@ -6,6 +6,7 @@ import { faUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 import gsap from 'gsap';
 import {useRef, useEffect} from "react";
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import ShinyText from './utils/ShinyText';
 
 const Projects = () => {
   const projectRef = useRef([]);
@@ -39,7 +40,8 @@ const Projects = () => {
   return (
     <div id='projects' className='projects-section-container'>
       <div ref={addToRefs} className="projects-section-title">
-        <p className='projects-section-heading'>Projects</p>
+        <ShinyText text="Projects" className='projects-section-heading'  disabled={false} speed={3} />
+        {/* <p className='projects-section-heading'>Projects</p> */}
         <a className='projects-section-viewmore' href="">view more</a>
       </div>
       <div ref={addToRefs} className="projects-container">

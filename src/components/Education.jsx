@@ -4,6 +4,7 @@ import Collegelogo from "./assets-comp/iiitk-logo.png";
 import Schoollogo from "./assets-comp/school-logo.jpg";
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import ShinyText from './utils/ShinyText';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -39,7 +40,7 @@ const Education = () => {
 
   return (
     <div id='education' className='education-container'>
-      <h1 ref={addToRefs} className="education-title">Education</h1>
+      <ShinyText text="Education" disabled={false} speed={3} ref={addToRefs} className="education-title"/>
       <div className="edu-except-h1">
         <div className="education" ref={addToRefs}>
           <div className="edu-logo">

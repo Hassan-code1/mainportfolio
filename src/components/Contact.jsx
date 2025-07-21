@@ -7,6 +7,7 @@ import { useState} from 'react';
 import emailjs from "@emailjs/browser";
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import ShinyText from './utils/ShinyText';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -65,7 +66,7 @@ export default function Contact() {
   };
   return (
     <section id='contact' className="contact-section-container">
-      <h1 ref={addToRefs} className='contact-section-heading'>Contact Me</h1>
+      <ShinyText text="Contact Me" className='contact-section-heading'  disabled={false} speed={3} />
       <div className="contact-section">
         <div className="contact-static-container">
           <h2 ref={addToRefs} className='contact-h2' >Get in Touch</h2>

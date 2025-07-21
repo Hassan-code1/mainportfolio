@@ -25,7 +25,8 @@ import Codeforces from  "./assets-comp/codeforces-logo.png";
 import gsap from "gsap";
 import {useRef} from 'react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
+import ShinyText from './utils/ShinyText';
+import ScrollStack, { ScrollStackItem } from './utils/ScrollStack';
 
 const skillSections = [
   {
@@ -111,25 +112,36 @@ const Skills = () => {
     });
   }, []);
   return (
-    <div className='skillnorm-container'>
-      <h1 ref={addToRefs} className='skillnorm-title'>My Skills</h1>
-      <p ref={addToRefs} className='skillnorm-para'>
-        Tools and Technologies I have worked with throughout my experience and projects
+    <div className="skillnorm-container">
+      <ShinyText
+        text="My Skills"
+        className="skillnorm-title"
+        disabled={false}
+        speed={3}
+      />
+      <p ref={addToRefs} className="skillnorm-para">
+        Tools and Technologies I have worked with throughout my experience and
+        projects
       </p>
-
-      {skillSections.map(section => (
-        <div className={section.className} key={section.title}>
-          <h3 ref={addToRefs} className='skillnorm-heading'>{section.title}</h3>
-          <div className="skillnormals">
-            {section.skills.map(skill => (
-              <div ref={addToRefs} className="skillnormal" key={skill.name}>
-                <img className='skillnormal-img' src={skill.logo} alt={skill.name.toLowerCase()} />
-                <p className='skillnormal-text'>{skill.name}</p>
-              </div>
-            ))}
+        {skillSections.map((section) => (
+          <div className={section.className} key={section.title}>
+            <h3 ref={addToRefs} className="skillnorm-heading">
+              {section.title}
+            </h3>
+            <div className="skillnormals">
+              {section.skills.map((skill) => (
+                <div ref={addToRefs} className="skillnormal" key={skill.name}>
+                  <img
+                    className="skillnormal-img"
+                    src={skill.logo}
+                    alt={skill.name.toLowerCase()}
+                  />
+                  <p className="skillnormal-text">{skill.name}</p>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
     </div>
   );
 };

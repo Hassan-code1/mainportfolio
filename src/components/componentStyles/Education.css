@@ -56,6 +56,10 @@
 }
 @media(max-width:768px){
     .education{
-        width: 100vw;
+        width: 100%;
+        padding: 10px 20px;
+    }
+    .edu-except-h1{
+        padding: 0 20px;
     }
 }

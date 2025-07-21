@@ -30,3 +30,8 @@
 .footer-links a:hover {
   text-decoration: underline;
 }
+@media(max-width: 768px){
+  .footer{
+    margin-top: 0px;
+  }
+}

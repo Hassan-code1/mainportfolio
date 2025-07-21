@@ -2,6 +2,7 @@ import React from 'react'
 import gsap from 'gsap'
 import { useEffect, useRef, useState } from 'react'
 import {Menu, X} from "lucide-react";
+import TrueFocus from './utils/TrueFocus';
 
 const Navbar = () => {
     const [isMenuOpen, setMenuOpen] = useState(false);
@@ -28,7 +29,7 @@ const Navbar = () => {
     <div className="navbar">
       <div className="navbar-logo">
         <a ref={LogoRef} href="/">
-          Hassan
+          <TrueFocus className="true-focus" sentence="Hassan Khan" manualMode={false} blurAmount={2} borderColor="rgb(82,39,255" glowColor="rgba(0, 255, 0, 0.6)" pauseBetweenAnimations={1.5} />
         </a>
       </div>
       <div className={`nav-links ${isMenuOpen ? "active" : ""}`}>
