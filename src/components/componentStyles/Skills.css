@@ -4,10 +4,42 @@
     width: 100%;
     margin-top: 80px;
     padding-left: 10px;
+    padding-top: 20px;
     font-family: sans-serif;
     margin-bottom: 40px;
-    height: 800px;
+    border: 1px solid rgba(141, 141, 141, 0.29);
+    overflow: hidden; /* Prevents overflow from background layer */
+    border-radius: 8px;
 }
+.skillnorm-container {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items:start;
+}
+
+/* Background Squares Layer */
+.squares-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 0; /* Allow clicks to pass through */
+}
+
+/* Ensure content stays above background */
+.skillnorm-title,
+.skillnorm-para,
+.skillnorm-heading,
+.skillnormals,
+.skillnormal {
+    position: relative;
+    z-index: 1;
+}
+
+
 .skillnorm-title{
     font-size: 32px;
     font-weight: 600;
@@ -25,7 +57,6 @@
     margin-top: 10px;
 }
 .skillnormals{
-    background-color: rgb(9,9,12);
     min-height: 80px;
     display: flex;
     align-items: center;

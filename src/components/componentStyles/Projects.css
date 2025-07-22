@@ -171,6 +171,9 @@ ul.project-feature-list {
     overflow: hidden;
   }
 
+  .project-about{
+    display: none;
+  }
   .project-img {
     width: 100%;
     height: 100%;
@@ -181,5 +184,8 @@ ul.project-feature-list {
   .project-description {
     width: 100%;
     padding: 16px;
+  }
+  .project-tech{
+    margin-top: 10px;
   }
 }
