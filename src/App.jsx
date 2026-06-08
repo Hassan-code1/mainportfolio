@@ -8,9 +8,12 @@ import "./App.css";
 
 import "./App.css"
 import Footer from './components/Footer';
+import CustomCursor from './components/utils/CustomCursor';
+
 function App() {
   return (
     <div className='app'>
+      <CustomCursor />
       <Navbar />
       <Container />
       <Footer />

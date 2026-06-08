@@ -1,16 +1,21 @@
 html, body{
     margin: 0;
-    border: border-box;
+    box-sizing: border-box;
     color: white;
 }
 .navbar{
     display: flex;
     justify-content: space-between;
-    width: 60%;
-    padding: 10px 10px;
+    width: 100%;
+    padding: 20px 5%;
     align-items: center;
-    background-color: rgba(9,9,11,1);
-    position: relative;
+    background-color: rgba(5, 5, 7, 0.6);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 50;
 }
 .navbar-logo{
     font-size: x-large;
@@ -20,7 +25,7 @@ html, body{
 .nav-links{
     display: flex;
     justify-content: space-between;
-    width: 50%;
+    gap: 30px;
     padding: 4px 10px;
 }
 .nav-link{
@@ -75,4 +80,24 @@ html, body{
 .hamburger{
     display: block;
 }
+}
+
+/* Vertical Marquee Animation */
+@keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(-50% - 1rem));
+  }
+}
+.animate-marquee-vertical {
+  animation: marquee-vertical 25s linear infinite;
+}
+.mask-vertical {
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+}
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 16px);
 }
