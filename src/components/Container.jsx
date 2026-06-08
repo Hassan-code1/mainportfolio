@@ -5,6 +5,7 @@ import Skills from './Skills'
 import Projects from './Projects'
 import Contact from './Contact'
 import Footer from './Footer'
+import CodingProfiles from './CodingProfiles'
 
 const Container = () => {
   return (
@@ -13,6 +14,7 @@ const Container = () => {
       <Education />
       <Projects />
       <Skills />
+      <CodingProfiles />
       <Contact />
       {/* <Footer /> */}
     </div>
