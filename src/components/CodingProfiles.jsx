@@ -88,12 +88,12 @@ export default function CodingProfiles() {
                 <span className="cp-stat-value cp-cc-accent">2-Star</span>
               </div>
               <div className="cp-stat-box">
-                <span className="cp-stat-label">Current Rating</span>
+                <span className="cp-stat-label">CP Rating</span>
                 <span className="cp-stat-value">1443</span>
               </div>
               <div className="cp-stat-box">
-                <span className="cp-stat-label">Global Rank</span>
-                <span className="cp-stat-value">35276</span>
+                <span className="cp-stat-label">DSA Rating</span>
+                <span className="cp-stat-value">1622</span>
               </div>
             </div>
           </div>
