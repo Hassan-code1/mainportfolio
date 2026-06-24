@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,8 +10,29 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function CodingProfiles() {
   const sectionRef = useRef(null);
+  const [cfData, setCfData] = useState({
+    handle: "2024kuec2011",
+    rank: "Loading...",
+    rating: "...",
+    maxRating: "..."
+  });
 
   useEffect(() => {
+    fetch('https://codeforces.com/api/user.info?handles=2024kuec2011')
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === 'OK' && data.result.length > 0) {
+          const user = data.result[0];
+          setCfData({
+            handle: user.handle,
+            rank: user.rank.charAt(0).toUpperCase() + user.rank.slice(1),
+            rating: user.rating || "N/A",
+            maxRating: user.maxRating || "N/A"
+          });
+        }
+      })
+      .catch(console.error);
+
     const ctx = gsap.context(() => {
       gsap.fromTo(
         '.cp-header',
@@ -108,19 +129,19 @@ export default function CodingProfiles() {
             <div className="cp-stats-grid">
               <div className="cp-stat-box">
                 <span className="cp-stat-label">Handle</span>
-                <span className="cp-stat-value cp-cf-accent">2024kuec2011</span>
+                <span className="cp-stat-value cp-cf-accent">{cfData.handle}</span>
               </div>
               <div className="cp-stat-box">
                 <span className="cp-stat-label">Rank</span>
-                <span className="cp-stat-value cp-cf-accent">Newbie</span>
+                <span className="cp-stat-value cp-cf-accent">{cfData.rank}</span>
               </div>
               <div className="cp-stat-box">
                 <span className="cp-stat-label">Current Rating</span>
-                <span className="cp-stat-value">1088</span>
+                <span className="cp-stat-value">{cfData.rating}</span>
               </div>
               <div className="cp-stat-box">
                 <span className="cp-stat-label">Max Rating</span>
-                <span className="cp-stat-value">1088</span>
+                <span className="cp-stat-value">{cfData.maxRating}</span>
               </div>
             </div>
           </div>

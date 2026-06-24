@@ -10,6 +10,7 @@ import StaggerText from './utils/StaggerText';
 import SampleProject from "./assets-comp/sample-project.jpeg";
 import DailyTasks from "./assets-comp/dailytasks.png"
 import TextLogo from "./assets-comp/text-compressor.jpeg";
+import QueueCover from "./assets-comp/QueuCure-cover.png"
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,22 +26,23 @@ const PROJECT_DATA = [
   },
   {
     id: 2,
+    title: "QueueCure",
+    desc: "Designed and built a production-grade clinic queue system with real-time communication, database transactions, concurrency protection, and predictive wait-time analytics.",
+    img: QueueCover,
+    tech: ["Express", "PostgreSQL", "TypeScript", "PrismaORM", "Socket.io"],
+    live: "https://queue-cure-eight.vercel.app/",
+    repo: "https://github.com/Hassan-code1/QueueCure"
+  },
+  {
+    id: 3,
     title: "Daily Tasks",
     desc: "Interactive tool to set daily tasks and see your consistency",
     img: DailyTasks,
     tech: ["Node", "React", "MongoDB", "Express"],
     live: "https://daily-tasks-five-green.vercel.app/",
     repo: "https://github.com/Hassan-code1/daily-tasks-personal-backend"
-  },
-  {
-    id: 3,
-    title: "Social Media App",
-    desc: "A responsive MERN stack social media application with real-time chat functionality.",
-    img: SampleProject,
-    tech: ["React", "Express", "Socket.io"],
-    live: "#",
-    repo: "#"
   }
+  
 ];
 
 const Projects = () => {
