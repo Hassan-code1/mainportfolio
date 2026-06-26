@@ -85,13 +85,13 @@ const Education = () => {
           <h2 className="text-5xl md:text-6xl font-bold tracking-tight text-gradient mb-2">
             <StaggerText text="Education" />
           </h2>
-          <p className="mt-4 text-gray-400 font-mono">Academic Background & Qualifications</p>
+          <p className="mt-4 text-[var(--text-secondary)] font-mono">Academic Background & Qualifications</p>
         </div>
 
         <div className="timeline-container relative max-w-4xl mx-auto">
           {/* Vertical Line */}
-          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-[2px] bg-white/10 -translate-x-1/2 rounded-full overflow-hidden">
-            <div className="timeline-line absolute top-0 w-full bg-gradient-to-b from-[var(--color-cyber-indigo)] to-[var(--color-electric-purple)]" />
+          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-[2px] bg-[var(--border-subtle)] -translate-x-1/2 rounded-full overflow-hidden">
+            <div className="timeline-line absolute top-0 w-full bg-gradient-to-b from-[var(--accent-primary)] to-[var(--accent-secondary)]" />
           </div>
 
           <div className="space-y-16">
@@ -100,8 +100,8 @@ const Education = () => {
               return (
                 <div key={edu.id} className="relative flex items-center flex-col md:flex-row justify-between w-full">
                   {/* Node */}
-                  <div className="timeline-node absolute left-4 md:left-1/2 w-8 h-8 rounded-full bg-[var(--color-void)] border-4 border-[var(--color-cyber-indigo)] shadow-[0_0_15px_rgba(99,102,241,0.6)] -translate-x-1/2 z-10 flex items-center justify-center">
-                    <div className="w-2 h-2 rounded-full bg-[var(--color-electric-purple)] animate-ping" />
+                  <div className="timeline-node absolute left-4 md:left-1/2 w-8 h-8 rounded-full bg-[var(--bg-primary)] border-4 border-[var(--accent-primary)] shadow-[0_0_15px_var(--accent-primary)] -translate-x-1/2 z-10 flex items-center justify-center">
+                    <div className="w-2 h-2 rounded-full bg-[var(--accent-secondary)] animate-ping" />
                   </div>
 
                   {/* Desktop Layout - Left Side (Empty if Odd) */}
@@ -109,21 +109,21 @@ const Education = () => {
 
                   {/* Content Card */}
                   <div className={`timeline-content pl-12 pr-4 md:px-0 w-full md:w-[45%] ${isEven ? 'order-3 timeline-right' : 'order-1 timeline-left md:text-right'} group`}>
-                    <div className={`glass-panel p-6 rounded-2xl transition-all duration-300 hover:-translate-y-2 hover:border-[var(--color-cyber-indigo)]/50 relative overflow-hidden`}>
-                      <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--color-cyber-indigo)] opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-20 pointer-events-none" />
+                    <div className={`glass-panel p-6 rounded-2xl transition-all duration-300 hover:-translate-y-2 hover:border-[var(--accent-primary)] relative overflow-hidden`}>
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--accent-primary)] opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-20 pointer-events-none" />
                       
                       <div className={`flex items-center gap-4 mb-4 ${!isEven ? 'md:flex-row-reverse' : ''}`}>
                         <img src={edu.logo} alt="Logo" className="w-12 h-12 object-contain rounded bg-white p-1" />
                         <div className={!isEven ? 'md:text-right' : ''}>
-                          <span className="font-mono text-sm text-[var(--color-emerald-green)] block">{edu.time}</span>
+                          <span className="font-mono text-sm text-emerald-500 block">{edu.time}</span>
                         </div>
                       </div>
                       
-                      <h3 className="text-xl md:text-2xl font-bold text-white mb-1 font-clash">{edu.school}</h3>
-                      <p className="text-[var(--color-text-secondary)] mb-4">{edu.location}</p>
+                      <h3 className="text-xl md:text-2xl font-bold text-[var(--text-primary)] mb-1 font-clash">{edu.school}</h3>
+                      <p className="text-[var(--text-secondary)] mb-4">{edu.location}</p>
                       
                       {edu.grade && (
-                        <div className={`inline-block px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-gray-300 font-mono text-sm`}>
+                        <div className={`inline-block px-4 py-1.5 rounded-full bg-[var(--bg-primary)] border border-[var(--border-subtle)] text-[var(--text-secondary)] font-mono text-sm`}>
                           {edu.grade}
                         </div>
                       )}

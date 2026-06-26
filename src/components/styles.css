@@ -1,7 +1,6 @@
 html, body{
     margin: 0;
     box-sizing: border-box;
-    color: white;
 }
 .navbar{
     display: flex;
@@ -9,9 +8,9 @@ html, body{
     width: 100%;
     padding: 20px 5%;
     align-items: center;
-    background-color: rgba(5, 5, 7, 0.6);
+    background-color: var(--bg-surface);
     backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid var(--border-subtle);
     position: fixed;
     top: 0;
     left: 0;
@@ -21,6 +20,11 @@ html, body{
     font-size: x-large;
     font-family: Helvetica;
     font-weight: 600;
+    color: var(--text-primary);
+}
+.navbar-logo a {
+    text-decoration: none;
+    color: inherit;
 }
 .nav-links{
     display: flex;
@@ -29,10 +33,12 @@ html, body{
     padding: 4px 10px;
 }
 .nav-link{
-    color: grey;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
 }
 .nav-link:hover{
-    color: rgb(187, 186, 186);
+    color: var(--text-primary);
     text-decoration: underline;
     cursor: pointer;
 }
@@ -46,8 +52,7 @@ html, body{
 @media(max-width: 1000px){
 html, body{
     margin: 0;
-    border: border-box;
-    color: white;
+    box-sizing: border-box;
 }
 /* .navbar-container{
     display: flex;

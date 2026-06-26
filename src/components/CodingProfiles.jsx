@@ -68,13 +68,13 @@ export default function CodingProfiles() {
     <section id="coding-profiles" className="cp-section py-16 md:py-32" ref={sectionRef}>
       <div className="container mx-auto px-4 md:px-6">
         <div className="cp-header text-center md:text-left mb-12 md:mb-16">
-          <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-white mb-2">
+          <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-[var(--text-primary)] mb-2">
             <StaggerText text="Competitive Programming" />
           </h2>
-          <p className="mt-4 text-[#6366F1] font-mono text-sm md:text-base">Metrics · Rankings · Achievements</p>
+          <p className="mt-4 text-[var(--accent-primary)] font-mono text-sm md:text-base">Metrics · Rankings · Achievements</p>
         </div>
 
-        <div className="cp-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div className="cp-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 lg:gap-8">
           
           <div className="cp-card">
             <div className="cp-card-header">
@@ -83,12 +83,19 @@ export default function CodingProfiles() {
                 <FontAwesomeIcon icon={faUpRightFromSquare} />
               </a>
             </div>
-            <div className="cp-iframe-wrapper">
-              <iframe
-                src="https://leetcard.jacoblin.cool/uKmlMzaX5j?theme=dark&font=Nunito&ext=contest"
-                title="LeetCode Profile"
-                scrolling="no"
-              />
+            <div className="cp-stats-grid">
+              <div className="cp-stat-box">
+                <span className="cp-stat-label">Contest Rating</span>
+                <span className="cp-stat-value text-yellow-500">1821</span>
+              </div>
+              <div className="cp-stat-box">
+                <span className="cp-stat-label">Problems Solved</span>
+                <span className="cp-stat-value">102</span>
+              </div>
+              <div className="cp-stat-box">
+                <span className="cp-stat-label">Top %</span>
+                <span className="cp-stat-value">7.21%</span>
+              </div>
             </div>
           </div>
 
@@ -110,11 +117,11 @@ export default function CodingProfiles() {
               </div>
               <div className="cp-stat-box">
                 <span className="cp-stat-label">CP Rating</span>
-                <span className="cp-stat-value">1443</span>
+                <span className="cp-stat-value">1434</span>
               </div>
               <div className="cp-stat-box">
                 <span className="cp-stat-label">DSA Rating</span>
-                <span className="cp-stat-value">1622</span>
+                <span className="cp-stat-value">1717</span>
               </div>
             </div>
           </div>
@@ -143,6 +150,21 @@ export default function CodingProfiles() {
                 <span className="cp-stat-label">Max Rating</span>
                 <span className="cp-stat-value">{cfData.maxRating}</span>
               </div>
+            </div>
+          </div>
+
+          <div className="cp-card cp-codolio-card">
+            <div className="cp-card-header">
+              <span className="cp-platform-name text-gradient">Codolio</span>
+              <a href="https://codolio.com/profile/hassansindhi" target="_blank" rel="noopener noreferrer" className="cp-link-btn">
+                <FontAwesomeIcon icon={faUpRightFromSquare} />
+              </a>
+            </div>
+            <div className="flex flex-col items-center justify-center flex-grow py-6 text-center z-10">
+              <p className="text-[var(--text-secondary)] font-medium mb-6">View my complete aggregated competitive programming statistics, daily streak, and global ranking.</p>
+              <a href="https://codolio.com/profile/hassansindhi" target="_blank" rel="noopener noreferrer" className="px-6 py-2.5 bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] rounded-full text-white font-medium hover:shadow-[0_0_20px_var(--accent-primary)] hover:scale-105 transition-all cursor-none border border-white/10">
+                View Codolio Profile
+              </a>
             </div>
           </div>
         </div>

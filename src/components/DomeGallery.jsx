@@ -747,10 +747,21 @@ export default function DomeGallery({
       cursor: pointer;
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
-      transition: transform 300ms;
+      transition: transform 300ms, border-color 300ms, box-shadow 300ms;
       pointer-events: auto;
       -webkit-transform: translateZ(0);
       transform: translateZ(0);
+    }
+    .item__image:hover {
+      border-color: var(--accent-primary) !important;
+      box-shadow: 0 0 15px var(--accent-primary) !important;
+      transform: translateY(-4px) translateZ(0) !important;
+    }
+    .item__image img {
+      transition: filter 300ms;
+    }
+    .item__image:hover img {
+      filter: none !important;
     }
     .item__image--reference {
       position: absolute;
@@ -829,8 +840,9 @@ export default function DomeGallery({
                       inset: '10px',
                       borderRadius: `var(--tile-radius, ${imageBorderRadius})`,
                       backfaceVisibility: 'hidden',
-                      backgroundColor: '#27272A',
-                      border: '1px solid rgba(255, 255, 255, 0.1)',
+                      backgroundColor: 'var(--bg-surface)',
+                      border: '1px solid var(--border-subtle)',
+                      boxShadow: 'var(--shadow-diffused)',
                       gap: '8px'
                     }}
                   >

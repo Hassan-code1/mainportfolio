@@ -84,12 +84,12 @@ const Skills = () => {
   }, []);
 
   return (
-    <div id="skills" ref={containerRef} className="py-16 md:py-32 relative z-10 overflow-hidden bg-[#050507]">
+    <div id="skills" ref={containerRef} className="py-16 md:py-32 relative z-10 overflow-hidden bg-[var(--bg-primary)]">
       <div className="container mx-auto px-4 md:px-6 mb-12 md:mb-16 skills-heading-container text-center">
-        <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-white mb-2">
+        <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-[var(--text-primary)] mb-2">
           <StaggerText text="Technical Skills" />
         </h2>
-        <p className="mt-4 text-[#6366F1] font-mono text-sm md:text-base">Tools · Technologies · Expertise</p>
+        <p className="mt-4 text-[var(--accent-primary)] font-mono text-sm md:text-base">Tools · Technologies · Expertise</p>
       </div>
 
       {/* Desktop 3D Dome */}
@@ -100,6 +100,7 @@ const Skills = () => {
           segments={26}
           dragDampening={1.8}
           grayscale={true}
+          overlayBlurColor="var(--bg-primary)"
         />
       </div>
 
@@ -109,11 +110,11 @@ const Skills = () => {
           {MARQUEE_ITEMS.map((skill, index) => (
             <div
               key={`${skill.name}-${index}`}
-              className="skill-pill mx-auto w-48 glass-panel flex-shrink-0 flex items-center justify-center gap-4 px-6 py-4 rounded-xl transition-all duration-300 border border-[#6366F1]/30 shadow-[0_0_15px_rgba(99,102,241,0.15)]"
-              style={{ backgroundColor: '#27272A' }}
+              className="skill-pill mx-auto w-48 glass-panel flex-shrink-0 flex items-center justify-center gap-4 px-6 py-4 rounded-xl transition-all duration-300 border border-[var(--border-subtle)] shadow-[var(--shadow-diffused)]"
+              style={{ backgroundColor: 'var(--bg-surface)' }}
             >
               <img src={skill.logo} alt={skill.name} className="w-8 h-8 object-contain" />
-              <span className="font-mono text-gray-200 text-sm font-semibold">{skill.name}</span>
+              <span className="font-mono text-[var(--text-primary)] text-sm font-semibold">{skill.name}</span>
             </div>
           ))}
         </div>

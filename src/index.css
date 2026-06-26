@@ -1,15 +1,14 @@
 @import "tailwindcss";
 
 @theme {
-  --color-void: #050507;
-  --color-glass: rgba(20, 20, 28, 0.6);
-  --color-glass-border: rgba(255, 255, 255, 0.05);
-  --color-cyber-indigo: #6366F1;
-  --color-electric-purple: #A855F7;
-  --color-emerald-green: #10B981;
-  --color-text-primary: #EDEDED;
-  --color-text-secondary: #A1A1AA;
-
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-surface: var(--bg-surface);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-accent-primary: var(--accent-primary);
+  --color-accent-secondary: var(--accent-secondary);
+  --color-border-subtle: var(--border-subtle);
+  
   --font-clash: 'Clash Display', sans-serif;
   --font-inter: 'Inter', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
@@ -17,18 +16,44 @@
 
 @layer base {
   :root {
-    --cyber-indigo: #6366F1;
-    --electric-purple: #A855F7;
+    --bg-primary: #F8FAFC;
+    --bg-surface: #FFFFFF;
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --accent-primary: #6D28D9;
+    --accent-secondary: #0284C7;
+    --border-subtle: #E2E8F0;
+    --shadow-diffused: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+    --input-bg: #F1F5F9;
+    --input-focus-bg: #FFFFFF;
+  }
+  
+  html.dark {
+    --bg-primary: #0A0A0F;
+    --bg-surface: #16161E;
+    --text-primary: #F3F4F6;
+    --text-secondary: #9CA3AF;
+    --accent-primary: #7C3AED;
+    --accent-secondary: #06B6D4;
+    --border-subtle: rgba(255, 255, 255, 0.05);
+    --shadow-diffused: 0 10px 30px -10px rgba(124, 58, 237, 0.3);
+    --input-bg: transparent;
+    --input-focus-bg: transparent;
   }
   
   body {
-    background-color: var(--color-void);
-    color: var(--color-text-primary);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
     font-family: var(--font-inter);
+    font-size: 1.0625rem;
+    line-height: 1.6;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
+    width: 100vw;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   /* Global Noise Overlay */
@@ -52,16 +77,18 @@
 
 @layer utilities {
   .text-gradient {
-    background: linear-gradient(to right, var(--cyber-indigo), var(--electric-purple));
+    background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .glass-panel {
-    background: var(--color-glass);
+    background: var(--bg-surface);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--color-glass-border);
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-diffused);
+    transition: all 0.3s ease;
   }
 }

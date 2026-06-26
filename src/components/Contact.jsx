@@ -15,6 +15,7 @@ export default function Contact() {
   const sectionRef    = useRef(null);
   const formRef       = useRef(null);
   const [status, setStatus] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -76,7 +77,8 @@ export default function Contact() {
       return;
     }
 
-    setStatus("Sending...");
+    setStatus("");
+    setIsSubmitting(true);
 
     emailjs
       .sendForm(
@@ -88,11 +90,13 @@ export default function Contact() {
       .then(
         () => {
           setStatus("Message sent successfully!");
+          setIsSubmitting(false);
           formRef.current.reset();
         },
         (error) => {
           console.error(error.text);
           setStatus("Failed to send message. Please try again later.");
+          setIsSubmitting(false);
         }
       );
   };
@@ -105,7 +109,7 @@ export default function Contact() {
           <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-gradient mb-2">
             <StaggerText text="Contact Me" />
           </h2>
-          <p className="mt-4 text-gray-400 font-mono">Let's build something amazing</p>
+          <p className="mt-4 text-[var(--text-secondary)] font-mono">Let's build something amazing</p>
         </div>
 
         <div className="contact-grid grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
@@ -113,48 +117,48 @@ export default function Contact() {
           {/* Left Panel */}
           <div className="contact-panel-left flex flex-col justify-center space-y-10">
             <div>
-              <h3 className="text-3xl font-clash font-bold text-white mb-2">Get in Touch</h3>
-              <p className="text-gray-400">Feel free to reach out for collaborations or just a friendly hello.</p>
+              <h3 className="text-3xl font-clash font-bold text-[var(--text-primary)] mb-2">Get in Touch</h3>
+              <p className="text-[var(--text-secondary)]">Feel free to reach out for collaborations or just a friendly hello.</p>
             </div>
             
             <div className="space-y-8">
               <div className="flex items-center gap-6 group">
-                <div className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-xl text-[var(--color-emerald-green)] group-hover:bg-[var(--color-emerald-green)]/10 group-hover:border-[var(--color-emerald-green)]/30 group-hover:scale-110 transition-all duration-300">
+                <div className="w-14 h-14 rounded-full bg-[var(--bg-primary)] border border-[var(--border-subtle)] flex items-center justify-center text-xl text-emerald-500 group-hover:bg-emerald-500/10 group-hover:border-emerald-500/30 group-hover:scale-110 transition-all duration-300">
                   <FontAwesomeIcon icon={faEnvelope} />
                 </div>
                 <div>
-                  <p className="text-sm text-[var(--color-text-secondary)] font-mono mb-1">Email</p>
-                  <p className="text-lg text-gray-200 font-medium group-hover:text-white transition-colors">hk747p@gmail.com</p>
+                  <p className="text-sm text-[var(--text-secondary)] font-mono mb-1">Email</p>
+                  <p className="text-lg text-[var(--text-primary)] font-medium transition-colors">hk747p@gmail.com</p>
                 </div>
               </div>
 
               <div className="flex items-center gap-6 group">
-                <div className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-xl text-[var(--color-cyber-indigo)] group-hover:bg-[var(--color-cyber-indigo)]/10 group-hover:border-[var(--color-cyber-indigo)]/30 group-hover:scale-110 transition-all duration-300">
+                <div className="w-14 h-14 rounded-full bg-[var(--bg-primary)] border border-[var(--border-subtle)] flex items-center justify-center text-xl text-[var(--accent-primary)] group-hover:bg-[var(--accent-primary)]/10 group-hover:border-[var(--accent-primary)]/30 group-hover:scale-110 transition-all duration-300">
                   <FontAwesomeIcon icon={faPhone} />
                 </div>
                 <div>
-                  <p className="text-sm text-[var(--color-text-secondary)] font-mono mb-1">Phone</p>
-                  <p className="text-lg text-gray-200 font-medium group-hover:text-white transition-colors">+91 6375019785</p>
+                  <p className="text-sm text-[var(--text-secondary)] font-mono mb-1">Phone</p>
+                  <p className="text-lg text-[var(--text-primary)] font-medium transition-colors">+91 6375019785</p>
                 </div>
               </div>
 
               <div className="flex items-center gap-6 group">
-                <div className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-xl text-[var(--color-electric-purple)] group-hover:bg-[var(--color-electric-purple)]/10 group-hover:border-[var(--color-electric-purple)]/30 group-hover:scale-110 transition-all duration-300">
+                <div className="w-14 h-14 rounded-full bg-[var(--bg-primary)] border border-[var(--border-subtle)] flex items-center justify-center text-xl text-[var(--accent-secondary)] group-hover:bg-[var(--accent-secondary)]/10 group-hover:border-[var(--accent-secondary)]/30 group-hover:scale-110 transition-all duration-300">
                   <FontAwesomeIcon icon={faLocationDot} />
                 </div>
                 <div>
-                  <p className="text-sm text-[var(--color-text-secondary)] font-mono mb-1">Location</p>
-                  <p className="text-lg text-gray-200 font-medium group-hover:text-white transition-colors">Jodhpur, Rajasthan</p>
+                  <p className="text-sm text-[var(--text-secondary)] font-mono mb-1">Location</p>
+                  <p className="text-lg text-[var(--text-primary)] font-medium transition-colors">Jodhpur, Rajasthan</p>
                 </div>
               </div>
 
               <div className="flex items-center gap-6 group">
-                <div className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-xl text-blue-400 group-hover:bg-blue-400/10 group-hover:border-blue-400/30 group-hover:scale-110 transition-all duration-300">
+                <div className="w-14 h-14 rounded-full bg-[var(--bg-primary)] border border-[var(--border-subtle)] flex items-center justify-center text-xl text-blue-400 group-hover:bg-blue-400/10 group-hover:border-blue-400/30 group-hover:scale-110 transition-all duration-300">
                   <FontAwesomeIcon icon={faLinkedin} />
                 </div>
                 <div>
-                  <p className="text-sm text-[var(--color-text-secondary)] font-mono mb-1">LinkedIn</p>
-                  <p className="text-lg text-gray-200 font-medium group-hover:text-white transition-colors">linkedin.com/in/hassansindhi</p>
+                  <p className="text-sm text-[var(--text-secondary)] font-mono mb-1">LinkedIn</p>
+                  <p className="text-lg text-[var(--text-primary)] font-medium transition-colors">linkedin.com/in/hassansindhi</p>
                 </div>
               </div>
             </div>
@@ -162,11 +166,11 @@ export default function Contact() {
 
           {/* Right Panel - Form */}
           <div className="contact-panel-right">
-            <div className="glass-panel p-8 md:p-12 rounded-3xl relative overflow-hidden">
-              <div className="absolute -top-32 -right-32 w-64 h-64 bg-[var(--color-electric-purple)] opacity-20 blur-[100px] rounded-full pointer-events-none" />
-              <div className="absolute -bottom-32 -left-32 w-64 h-64 bg-[var(--color-cyber-indigo)] opacity-20 blur-[100px] rounded-full pointer-events-none" />
+            <div className="bg-[var(--bg-surface)] border border-[var(--border-subtle)] shadow-[var(--shadow-diffused)] p-8 md:p-12 rounded-3xl relative overflow-hidden">
+              <div className="absolute -top-32 -right-32 w-64 h-64 bg-[var(--accent-secondary)] opacity-20 blur-[100px] rounded-full pointer-events-none" />
+              <div className="absolute -bottom-32 -left-32 w-64 h-64 bg-[var(--accent-primary)] opacity-20 blur-[100px] rounded-full pointer-events-none" />
               
-              <h3 className="text-2xl font-clash font-bold text-white mb-8 relative z-10">Send me a message</h3>
+              <h3 className="text-2xl font-clash font-bold text-[var(--text-primary)] mb-8 relative z-10">Send me a message</h3>
               
               <form ref={formRef} onSubmit={sendEmail} className="space-y-8 relative z-10">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -176,9 +180,9 @@ export default function Contact() {
                       name="from_name"
                       placeholder="Your Name"
                       required
-                      className="w-full bg-transparent border-b border-white/20 pb-3 text-white placeholder-gray-500 focus:outline-none focus:border-transparent transition-all peer cursor-none"
+                      className="w-full bg-[var(--input-bg)] focus:bg-[var(--input-focus-bg)] border-b border-[var(--border-subtle)] pb-3 pt-3 px-4 rounded-t-md text-[var(--text-primary)] placeholder-[var(--text-secondary)] focus:outline-none transition-all peer cursor-none"
                     />
-                    <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[var(--color-cyber-indigo)] to-[var(--color-electric-purple)] transition-all duration-300 peer-focus:w-full" />
+                    <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] transition-all duration-300 peer-focus:w-full" />
                   </div>
                   
                   <div className="relative group">
@@ -187,9 +191,9 @@ export default function Contact() {
                       name="from_email"
                       placeholder="Your Email"
                       required
-                      className="w-full bg-transparent border-b border-white/20 pb-3 text-white placeholder-gray-500 focus:outline-none focus:border-transparent transition-all peer cursor-none"
+                      className="w-full bg-[var(--input-bg)] focus:bg-[var(--input-focus-bg)] border-b border-[var(--border-subtle)] pb-3 pt-3 px-4 rounded-t-md text-[var(--text-primary)] placeholder-[var(--text-secondary)] focus:outline-none transition-all peer cursor-none"
                     />
-                    <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[var(--color-cyber-indigo)] to-[var(--color-electric-purple)] transition-all duration-300 peer-focus:w-full" />
+                    <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] transition-all duration-300 peer-focus:w-full" />
                   </div>
                 </div>
 
@@ -199,21 +203,28 @@ export default function Contact() {
                     placeholder="Your Message"
                     required
                     rows="4"
-                    className="w-full bg-transparent border-b border-white/20 pb-3 text-white placeholder-gray-500 focus:outline-none focus:border-transparent transition-all peer resize-none cursor-none"
+                    className="w-full bg-[var(--input-bg)] focus:bg-[var(--input-focus-bg)] border-b border-[var(--border-subtle)] pb-3 pt-3 px-4 rounded-t-md text-[var(--text-primary)] placeholder-[var(--text-secondary)] focus:outline-none transition-all peer resize-none cursor-none"
                   ></textarea>
-                  <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[var(--color-cyber-indigo)] to-[var(--color-electric-purple)] transition-all duration-300 peer-focus:w-full" />
+                  <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] transition-all duration-300 peer-focus:w-full" />
                 </div>
 
                 <div className="pt-4">
                   <MagneticButton>
-                    <button type="submit" className="px-8 py-4 bg-white/5 backdrop-blur-md text-white border border-white/10 rounded-full font-medium hover:bg-white/10 hover:border-white/20 transition-all cursor-none">
-                      Submit Message
+                    <button type="submit" disabled={isSubmitting} className="px-8 py-4 bg-[var(--accent-primary)] text-white rounded-full font-medium hover:bg-[var(--accent-secondary)] hover:shadow-[0_0_15px_var(--accent-secondary)] transition-all cursor-none flex items-center justify-center gap-2">
+                      {isSubmitting ? (
+                        <>
+                          <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                          Sending...
+                        </>
+                      ) : (
+                        "Submit Message"
+                      )}
                     </button>
                   </MagneticButton>
                 </div>
                 
                 {status && (
-                  <p className={`mt-4 font-mono text-sm ${status.startsWith("Error") || status.startsWith("Failed") ? "text-red-400" : "text-[var(--color-emerald-green)]"}`}>
+                  <p className={`mt-4 font-mono text-sm ${status.startsWith("Error") || status.startsWith("Failed") ? "text-red-400" : "text-emerald-500"}`}>
                     {status}
                   </p>
                 )}

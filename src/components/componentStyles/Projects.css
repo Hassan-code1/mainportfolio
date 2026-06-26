@@ -1,1 +1,15 @@
-/* Projects CSS mostly migrated to Tailwind in Projects.jsx */
+/* Projects CSS */
+
+.tech-tag-blue { background: rgba(59, 130, 246, 0.1); color: #2563eb; border-color: rgba(59, 130, 246, 0.2); }
+html.dark .tech-tag-blue { background: rgba(59, 130, 246, 0.15); color: #93c5fd; border-color: rgba(59, 130, 246, 0.3); }
+
+.tech-tag-green { background: rgba(34, 197, 94, 0.1); color: #16a34a; border-color: rgba(34, 197, 94, 0.2); }
+html.dark .tech-tag-green { background: rgba(34, 197, 94, 0.15); color: #86efac; border-color: rgba(34, 197, 94, 0.3); }
+
+.tech-tag-purple { background: rgba(168, 85, 247, 0.1); color: #9333ea; border-color: rgba(168, 85, 247, 0.2); }
+html.dark .tech-tag-purple { background: rgba(168, 85, 247, 0.15); color: #d8b4fe; border-color: rgba(168, 85, 247, 0.3); }
+
+.tech-tag-orange { background: rgba(249, 115, 22, 0.1); color: #ea580c; border-color: rgba(249, 115, 22, 0.2); }
+html.dark .tech-tag-orange { background: rgba(249, 115, 22, 0.15); color: #fdba74; border-color: rgba(249, 115, 22, 0.3); }
+
+.tech-tag-default { background: var(--bg-primary); color: var(--text-secondary); border-color: var(--border-subtle); }

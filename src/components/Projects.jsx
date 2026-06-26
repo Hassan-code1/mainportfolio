@@ -10,7 +10,7 @@ import StaggerText from './utils/StaggerText';
 import SampleProject from "./assets-comp/sample-project.jpeg";
 import DailyTasks from "./assets-comp/dailytasks.png"
 import TextLogo from "./assets-comp/text-compressor.jpeg";
-import QueueCover from "./assets-comp/QueuCure-cover.png"
+import QueueLogo from "./assets-comp/QueuCure-cover.png"
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -28,10 +28,10 @@ const PROJECT_DATA = [
     id: 2,
     title: "QueueCure",
     desc: "Designed and built a production-grade clinic queue system with real-time communication, database transactions, concurrency protection, and predictive wait-time analytics.",
-    img: QueueCover,
+    img: QueueLogo,
     tech: ["Express", "PostgreSQL", "TypeScript", "PrismaORM", "Socket.io"],
-    live: "https://queue-cure-eight.vercel.app/",
-    repo: "https://github.com/Hassan-code1/QueueCure"
+    live: "#",
+    repo: "#"
   },
   {
     id: 3,
@@ -42,8 +42,16 @@ const PROJECT_DATA = [
     live: "https://daily-tasks-five-green.vercel.app/",
     repo: "https://github.com/Hassan-code1/daily-tasks-personal-backend"
   }
-  
 ];
+
+const getTagColor = (tag) => {
+  const t = tag.toLowerCase();
+  if (t.includes('react') || t.includes('typescript') || t.includes('tailwind') || t.includes('docker')) return 'tech-tag-blue';
+  if (t.includes('node') || t.includes('mongo') || t.includes('express') || t.includes('nginx')) return 'tech-tag-green';
+  if (t.includes('sql') || t.includes('prisma')) return 'tech-tag-purple';
+  if (t.includes('socket')) return 'tech-tag-orange';
+  return 'tech-tag-default';
+};
 
 const Projects = () => {
   const sectionRef = useRef(null);
@@ -89,9 +97,9 @@ const Projects = () => {
             <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-gradient mb-2">
               <StaggerText text="Featured Work" />
             </h2>
-            <p className="mt-4 text-gray-400 font-mono">Selected projects and experiments</p>
+            <p className="mt-4 text-[var(--text-secondary)] font-mono">Selected projects and experiments</p>
           </div>
-          <a className='text-emerald-500 font-mono hover:text-emerald-400 transition-colors hidden md:block cursor-none' href="#">
+          <a className='text-[var(--accent-secondary)] font-mono hover:text-[var(--accent-primary)] transition-colors hidden md:block cursor-none' href="#">
             View All Archive →
           </a>
         </div>
@@ -101,40 +109,40 @@ const Projects = () => {
           {PROJECT_DATA.map((proj) => (
             <div
               key={proj.id}
-              className={`project-accordion-item relative rounded-3xl overflow-hidden cursor-none transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] flex-none w-[85vw] md:w-auto md:flex-1 snap-center glass-panel ${
+              className={`project-accordion-item group relative rounded-3xl overflow-hidden cursor-none transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] flex-none w-[85vw] md:w-auto md:flex-1 snap-center glass-panel hover:-translate-y-1 hover:border-[var(--accent-primary)] hover:shadow-[0_0_20px_var(--accent-primary)] ${
                 activeId === proj.id ? 'lg:flex-grow-[4]' : 'lg:flex-grow-[1]'
               }`}
               onMouseEnter={() => setActiveId(proj.id)}
             >
-              <div className="absolute inset-0 bg-black/40 z-10 transition-opacity duration-500 group-hover:bg-black/20" />
+              <div className="absolute inset-0 bg-black/5 z-10 transition-opacity duration-500 group-hover:bg-black/0" />
               <img 
                 src={proj.img} 
                 alt={proj.title} 
                 className={`absolute inset-0 w-full h-full object-cover transition-transform duration-1000 ${
-                  activeId === proj.id ? 'scale-105 opacity-80' : 'scale-100 opacity-40 grayscale'
+                  activeId === proj.id ? 'scale-105 opacity-100 grayscale-0' : 'scale-105 opacity-100 grayscale-0 md:scale-100 md:opacity-60 md:grayscale'
                 }`}
               />
               
               {/* Content Overlay */}
-              <div className="absolute bottom-0 left-0 w-full p-6 md:p-8 z-20 bg-gradient-to-t from-[#050507] via-[#050507]/80 to-transparent flex flex-col justify-end h-full">
+              <div className="absolute bottom-0 left-0 w-full p-6 md:p-8 z-20 bg-gradient-to-t from-bg-surface via-bg-surface/90 to-transparent flex flex-col justify-end h-full">
                 {/* On mobile, content is always visible. On desktop, visibility depends on activeId. */}
-                <div className={`transition-all duration-500 transform md:${activeId === proj.id ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+                <div className={`transition-all duration-500 transform ${activeId === proj.id ? 'translate-y-0 opacity-100' : 'translate-y-0 opacity-100 md:translate-y-8 md:opacity-0'}`}>
                   <div className="flex flex-wrap gap-2 mb-4">
                     {proj.tech.slice(0, 4).map((t, idx) => (
-                      <span key={idx} className="px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-[10px] md:text-xs font-mono text-emerald-400 border border-white/5">
+                      <span key={idx} className={`px-3 py-1 backdrop-blur-md rounded-full text-[10px] md:text-xs font-mono border ${getTagColor(t)}`}>
                         {t}
                       </span>
                     ))}
-                    {proj.tech.length > 4 && <span className="px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-[10px] md:text-xs font-mono text-emerald-400 border border-white/5">+{proj.tech.length - 4}</span>}
+                    {proj.tech.length > 4 && <span className="px-3 py-1 tech-tag-default backdrop-blur-md rounded-full text-[10px] md:text-xs font-mono border">+{proj.tech.length - 4}</span>}
                   </div>
-                  <h3 className="text-2xl md:text-4xl font-bold text-white mb-2 font-clash">{proj.title}</h3>
-                  <p className="text-sm md:text-base text-gray-300 mb-6 max-w-xl line-clamp-2 md:line-clamp-3 leading-relaxed">{proj.desc}</p>
+                  <h3 className="text-2xl md:text-4xl font-bold text-[var(--text-primary)] mb-2 font-clash">{proj.title}</h3>
+                  <p className="text-sm md:text-base text-[var(--text-secondary)] mb-6 max-w-xl line-clamp-2 md:line-clamp-3 leading-relaxed">{proj.desc}</p>
                   
                   <div className="flex items-center gap-3 md:gap-4 flex-wrap">
-                    <a href={proj.live} className="flex items-center gap-2 bg-[#6366F1] text-white px-4 py-2 md:px-5 md:py-2.5 rounded-full hover:bg-[#A855F7] transition-colors text-sm font-medium cursor-none flex-1 justify-center whitespace-nowrap">
+                    <a href={proj.live} className="flex items-center gap-2 bg-[var(--accent-primary)] text-white px-4 py-2 md:px-5 md:py-2.5 rounded-full hover:bg-[var(--accent-secondary)] hover:shadow-[0_0_15px_var(--accent-secondary)] transition-all text-sm font-medium cursor-none flex-1 justify-center whitespace-nowrap">
                       <FontAwesomeIcon icon={faUpRightFromSquare} /> Live Site
                     </a>
-                    <a href={proj.repo} className="flex items-center gap-2 bg-white/10 backdrop-blur-md text-white px-4 py-2 md:px-5 md:py-2.5 rounded-full hover:bg-white/20 transition-colors text-sm font-medium border border-white/10 cursor-none flex-1 justify-center whitespace-nowrap">
+                    <a href={proj.repo} className="flex items-center gap-2 bg-[var(--bg-primary)] text-[var(--text-primary)] border border-[var(--border-subtle)] px-4 py-2 md:px-5 md:py-2.5 rounded-full hover:bg-[var(--border-subtle)] transition-colors text-sm font-medium cursor-none flex-1 justify-center whitespace-nowrap">
                       <FontAwesomeIcon icon={faCodeBranch} /> Source Code
                     </a>
                   </div>
@@ -142,14 +150,14 @@ const Projects = () => {
                 
                 {/* Vertical title for collapsed state (Desktop) */}
                 <div className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-90 hidden lg:block transition-all duration-500 w-[500px] text-center ${activeId === proj.id ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
-                  <h3 className="text-2xl font-bold text-gray-400 tracking-widest uppercase font-clash whitespace-nowrap">{proj.title}</h3>
+                  <h3 className="text-2xl font-bold text-[var(--text-secondary)] tracking-widest uppercase font-clash whitespace-nowrap">{proj.title}</h3>
                 </div>
               </div>
             </div>
           ))}
         </div>
         
-        <a className='text-emerald-500 font-mono hover:text-emerald-400 transition-colors block md:hidden mt-8 text-center cursor-none' href="#">
+        <a className='text-[var(--accent-secondary)] font-mono hover:text-[var(--accent-primary)] transition-colors block md:hidden mt-8 text-center cursor-none' href="#">
           View All Archive →
         </a>
       </div>
