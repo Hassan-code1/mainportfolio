@@ -2,26 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-regular-svg-icons';
 import "./componentStyles/Footer.css";
+import { trackView } from '../utils/counter';
 
 const ViewCounter = () => {
   const [views, setViews] = useState(null);
 
   useEffect(() => {
-    if (localStorage.getItem("portfolio-visited")) {
-      fetch("https://api.countapi.xyz/get/hassankhan/portfolio")
-        .then((res) => res.json())
-        .then((data) => setViews(data.value))
-        .catch(console.error);
-      return;
-    }
-
-    fetch("https://api.countapi.xyz/hit/hassankhan/portfolio")
-      .then((res) => res.json())
-      .then((data) => {
-        setViews(data.value);
-        localStorage.setItem("portfolio-visited", "true");
-      })
-      .catch(console.error);
+    const fetchViews = async () => {
+      const count = await trackView();
+      if (count !== null) {
+        setViews(count);
+      }
+    };
+    
+    fetchViews();
   }, []);
 
   return (
