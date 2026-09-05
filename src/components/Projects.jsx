@@ -1,167 +1,278 @@
-import React, { useRef, useEffect, useState } from 'react';
-import "./componentStyles/Projects.css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUpRightFromSquare, faCodeBranch } from '@fortawesome/free-solid-svg-icons';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import StaggerText from './utils/StaggerText';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import SectionHeader from './SectionHeader';
 
-
-import SampleProject from "./assets-comp/sample-project.jpeg";
-import DailyTasks from "./assets-comp/dailytasks.png"
-import TextLogo from "./assets-comp/text-compressor.jpeg";
-import QueueLogo from "./assets-comp/QueuCure-cover.png"
-
-gsap.registerPlugin(ScrollTrigger);
-
-const PROJECT_DATA = [
+const projects = [
   {
     id: 1,
-    title: "Text Compressor",
-    desc: "A full-stack compression tool combining a high-performance C++ Huffman engine with a dynamically load-balanced Node.js backend. It features a React interface that interactively maps out the data compression process.",
-    img: TextLogo,
-    tech: ["React", "Node", "MongoDB", "Tailwind", "Cpp", "Nginx", "Docker"],
-    live: "https://text-compressor-frontend.vercel.app/",
-    repo: "https://github.com/Hassan-code1/text_compressor_backend"
+    name: "Distributed Code Execution Engine",
+    status: "DEPLOYED",
+    latency: "12ms",
+    stack: ["Go", "Docker", "Redis", "Postgres"],
+    tags: ["GO", "BACKEND", "SYSTEMS"],
+    description: "A highly scalable, containerized execution environment for running untrusted user code safely with bounded resources.",
+    links: { repo: `${import.meta.env.VITE_GITHUB_URL}/judger` },
+    type: "architectural"
   },
   {
     id: 2,
-    title: "QueueCure",
-    desc: "Designed and built a production-grade clinic queue system with real-time communication, database transactions, concurrency protection, and predictive wait-time analytics.",
-    img: QueueLogo,
-    tech: ["Express", "PostgreSQL", "TypeScript", "PrismaORM", "Socket.io"],
-    live: "#",
-    repo: "#"
+    name: "Huffman Compression CLI",
+    status: "STABLE",
+    latency: "O(n log n)",
+    stack: ["C++", "Algorithms"],
+    tags: ["C++", "SYSTEMS"],
+    description: "High-performance text compression tool reducing payload size using optimized Huffman coding trees.",
+    links: { repo: `${import.meta.env.VITE_GITHUB_URL}/huffman` },
+    type: "metric"
   },
   {
     id: 3,
-    title: "Daily Tasks",
-    desc: "Interactive tool to set daily tasks and see your consistency",
-    img: DailyTasks,
-    tech: ["Node", "React", "MongoDB", "Express"],
-    live: "https://daily-tasks-five-green.vercel.app/",
-    repo: "https://github.com/Hassan-code1/daily-tasks-personal-backend"
+    name: "Workspace SaaS Engine",
+    status: "BETA",
+    latency: "45ms",
+    stack: ["React", "Node", "Postgres", "Prisma"],
+    tags: ["FULLSTACK", "BACKEND"],
+    description: "A collaborative workspace platform featuring real-time state synchronization and advanced role-based access control.",
+    links: { repo: `${import.meta.env.VITE_GITHUB_URL}/workspace` },
+    type: "standard"
+  },
+  {
+    id: 4,
+    name: "Daily Tasks Scheduling Website",
+    status: "ARCHIVED",
+    latency: "80ms",
+    stack: ["React", "Node", "Postgres"],
+    tags: ["FULLSTACK"],
+    description: "A task scheduling web application focused on organizing daily tasks and managing personal productivity workflows.",
+    links: { repo: `${import.meta.env.VITE_GITHUB_URL}/daily-tasks` },
+    type: "architectural"
   }
 ];
 
-const getTagColor = (tag) => {
-  const t = tag.toLowerCase();
-  if (t.includes('react') || t.includes('typescript') || t.includes('tailwind') || t.includes('docker')) return 'tech-tag-blue';
-  if (t.includes('node') || t.includes('mongo') || t.includes('express') || t.includes('nginx')) return 'tech-tag-green';
-  if (t.includes('sql') || t.includes('prisma')) return 'tech-tag-purple';
-  if (t.includes('socket')) return 'tech-tag-orange';
-  return 'tech-tag-default';
-};
+const filters = ["ALL", "GO", "C++", "BACKEND", "SYSTEMS", "FULLSTACK"];
 
 const Projects = () => {
-  const sectionRef = useRef(null);
-  const [activeId, setActiveId] = useState(1);
+  const [activeFilter, setActiveFilter] = useState("ALL");
+  const [hoveredProject, setHoveredProject] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const filteredProjects = activeFilter === "ALL" 
+    ? projects 
+    : projects.filter(p => p.tags.includes(activeFilter));
+
+  const itemsPerPage = 3;
+  const totalPages = Math.ceil(filteredProjects.length / itemsPerPage);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        '.projects-header',
-        { opacity: 0, y: 50, filter: 'blur(8px)' },
-        {
-          opacity: 1, y: 0, filter: 'blur(0px)', duration: 1, ease: 'power3.out',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse',
-          },
-        }
-      );
+    setCurrentPage(1);
+  }, [activeFilter]);
 
-      gsap.fromTo(
-        '.project-accordion-item',
-        { opacity: 0, y: 50 },
-        {
-          opacity: 1, y: 0, duration: 0.8, stagger: 0.2, ease: 'power3.out',
-          scrollTrigger: {
-            trigger: '.projects-gallery',
-            start: 'top 75%',
-            toggleActions: 'play none none reverse',
-          },
-        }
-      );
-    }, sectionRef);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedProjects = filteredProjects.slice(startIndex, startIndex + itemsPerPage);
 
-    return () => ctx.revert();
-  }, []);
+  const handlePrev = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
+
+  const handleNext = () => {
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  };
 
   return (
-    <div id='projects' className='py-16 md:py-32 relative z-10' ref={sectionRef}>
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="projects-header flex justify-between items-end mb-8 md:mb-16">
-          <div className="text-center md:text-left w-full md:w-auto">
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-gradient mb-2">
-              <StaggerText text="Featured Work" />
-            </h2>
-            <p className="mt-4 text-[var(--text-secondary)] font-mono">Selected projects and experiments</p>
-          </div>
-          <a className='text-[var(--accent-secondary)] font-mono hover:text-[var(--accent-primary)] transition-colors hidden md:block cursor-none' href="#">
-            View All Archive →
-          </a>
-        </div>
-
-        {/* Desktop & Mobile Gallery Wrapper */}
-        <div className="projects-gallery flex flex-row lg:flex-row gap-4 h-[600px] w-full overflow-x-auto lg:overflow-x-visible snap-x snap-mandatory pb-4 md:pb-0 hide-scrollbar" style={{ scrollBehavior: 'smooth' }}>
-          {PROJECT_DATA.map((proj) => (
-            <div
-              key={proj.id}
-              className={`project-accordion-item group relative rounded-3xl overflow-hidden cursor-none transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] flex-none w-[85vw] md:w-auto md:flex-1 snap-center glass-panel hover:-translate-y-1 hover:border-[var(--accent-primary)] hover:shadow-[0_0_20px_var(--accent-primary)] ${
-                activeId === proj.id ? 'lg:flex-grow-[4]' : 'lg:flex-grow-[1]'
+    <section id="projects" className="flex flex-col gap-6 w-full">
+      <SectionHeader id="04" title="ARCHITECTURE_NODES" />
+      
+      {/* FILTER PANEL */}
+      <div className="flex flex-wrap items-center gap-4 border-b border-[#222222] pb-4">
+        <span className="text-[#6E737D] font-mono text-xs">FILTER:</span>
+        <div className="flex flex-wrap gap-2">
+          {filters.map(filter => (
+            <button
+              key={filter}
+              onClick={() => setActiveFilter(filter)}
+              className={`font-mono text-xs px-3 py-1 border transition-colors cursor-crosshair ${
+                activeFilter === filter 
+                  ? 'border-[#00ADD8] text-[#00ADD8] bg-[#0E0E11]' 
+                  : 'border-[#222222] text-[#6E737D] hover:text-[#EDEDED] hover:border-[#444]'
               }`}
-              onMouseEnter={() => setActiveId(proj.id)}
             >
-              <div className="absolute inset-0 bg-black/5 z-10 transition-opacity duration-500 group-hover:bg-black/0" />
-              <img 
-                src={proj.img} 
-                alt={proj.title} 
-                className={`absolute inset-0 w-full h-full object-cover transition-transform duration-1000 ${
-                  activeId === proj.id ? 'scale-105 opacity-100 grayscale-0' : 'scale-105 opacity-100 grayscale-0 md:scale-100 md:opacity-60 md:grayscale'
-                }`}
-              />
-              
-              {/* Content Overlay */}
-              <div className="absolute bottom-0 left-0 w-full p-6 md:p-8 z-20 bg-gradient-to-t from-bg-surface via-bg-surface/90 to-transparent flex flex-col justify-end h-full">
-                {/* On mobile, content is always visible. On desktop, visibility depends on activeId. */}
-                <div className={`transition-all duration-500 transform ${activeId === proj.id ? 'translate-y-0 opacity-100' : 'translate-y-0 opacity-100 md:translate-y-8 md:opacity-0'}`}>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {proj.tech.slice(0, 4).map((t, idx) => (
-                      <span key={idx} className={`px-3 py-1 backdrop-blur-md rounded-full text-[10px] md:text-xs font-mono border ${getTagColor(t)}`}>
-                        {t}
-                      </span>
-                    ))}
-                    {proj.tech.length > 4 && <span className="px-3 py-1 tech-tag-default backdrop-blur-md rounded-full text-[10px] md:text-xs font-mono border">+{proj.tech.length - 4}</span>}
-                  </div>
-                  <h3 className="text-2xl md:text-4xl font-bold text-[var(--text-primary)] mb-2 font-clash">{proj.title}</h3>
-                  <p className="text-sm md:text-base text-[var(--text-secondary)] mb-6 max-w-xl line-clamp-2 md:line-clamp-3 leading-relaxed">{proj.desc}</p>
-                  
-                  <div className="flex items-center gap-3 md:gap-4 flex-wrap">
-                    <a href={proj.live} className="flex items-center gap-2 bg-[var(--accent-primary)] text-white px-4 py-2 md:px-5 md:py-2.5 rounded-full hover:bg-[var(--accent-secondary)] hover:shadow-[0_0_15px_var(--accent-secondary)] transition-all text-sm font-medium cursor-none flex-1 justify-center whitespace-nowrap">
-                      <FontAwesomeIcon icon={faUpRightFromSquare} /> Live Site
-                    </a>
-                    <a href={proj.repo} className="flex items-center gap-2 bg-[var(--bg-primary)] text-[var(--text-primary)] border border-[var(--border-subtle)] px-4 py-2 md:px-5 md:py-2.5 rounded-full hover:bg-[var(--border-subtle)] transition-colors text-sm font-medium cursor-none flex-1 justify-center whitespace-nowrap">
-                      <FontAwesomeIcon icon={faCodeBranch} /> Source Code
-                    </a>
-                  </div>
-                </div>
-                
-                {/* Vertical title for collapsed state (Desktop) */}
-                <div className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-90 hidden lg:block transition-all duration-500 w-[500px] text-center ${activeId === proj.id ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
-                  <h3 className="text-2xl font-bold text-[var(--text-secondary)] tracking-widest uppercase font-clash whitespace-nowrap">{proj.title}</h3>
-                </div>
-              </div>
-            </div>
+              [ {filter} ]
+            </button>
           ))}
         </div>
-        
-        <a className='text-[var(--accent-secondary)] font-mono hover:text-[var(--accent-primary)] transition-colors block md:hidden mt-8 text-center cursor-none' href="#">
-          View All Archive →
-        </a>
+        <div className="ml-auto font-mono text-xs text-[#47A248]">
+          {activeFilter !== "ALL" && `${filteredProjects.length} NODE(S) MATCHED`}
+        </div>
       </div>
-    </div>
+
+      {/* PROJECT GRID */}
+      <div className="min-h-[400px]">
+        <AnimatePresence mode="wait">
+          <motion.div 
+            key={currentPage + activeFilter}
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-6"
+          >
+            {paginatedProjects.map((project, idx) => {
+              const isWide = idx === 0 || paginatedProjects.length === 1;
+              return (
+                <div 
+                  key={project.id}
+                  onMouseEnter={() => setHoveredProject(project.id)}
+                  onMouseLeave={() => setHoveredProject(null)}
+                  className={`group relative border interactive-node cursor-crosshair flex flex-col h-full ${
+                    isWide ? 'lg:col-span-2' : ''
+                  } ${
+                    hoveredProject === project.id 
+                      ? 'bg-[#0E0E11] border-[#00ADD8] shadow-[0_0_15px_rgba(0,173,216,0.1)]' 
+                      : 'bg-[#050505] border-[#222222]'
+                  } transition-all duration-300`}
+                >
+                  {/* Top Bar metrics */}
+                  <div className="flex justify-between items-center border-b border-[#222222] p-4 font-mono text-xs">
+                    <div className="flex gap-4">
+                      <span className="text-[#6E737D]">NODE_{project.id.toString().padStart(2, '0')}</span>
+                      <span className={`${hoveredProject === project.id ? 'text-[#00ADD8]' : 'text-[#47A248]'} transition-colors`}>
+                        STAT: {project.status}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className={`flex flex-col flex-1 p-6 ${isWide ? 'md:flex-row gap-8' : ''}`}>
+                    <div className="flex-1 flex flex-col">
+                      <h3 className={`text-2xl font-bold mb-3 transition-colors ${hoveredProject === project.id ? 'text-[#00ADD8]' : 'text-[#EDEDED]'}`}>
+                        {project.name}
+                      </h3>
+                      <p className="text-[#6E737D] mb-6">{project.description}</p>
+                      
+                      <div className="flex flex-wrap gap-2 mb-6">
+                        {project.stack.map(tech => (
+                          <span 
+                            key={tech} 
+                            className={`px-2 py-1 font-mono text-xs border transition-colors ${
+                              hoveredProject === project.id 
+                                ? 'border-[#00ADD8] text-[#00ADD8] bg-[#0E0E11]' 
+                                : 'bg-[#050505] border-[#222222] text-[#EDEDED]'
+                            }`}
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* ARCHITECTURE VISUALIZATION for Project 01 & 04 */}
+                    {project.type === 'architectural' && (
+                      <div className="md:w-1/3 flex flex-col items-start justify-center font-mono text-xs text-[#6E737D] border-t md:border-t-0 md:border-l border-[#222222] pt-6 md:pt-0 pl-4 md:pl-8">
+                        <div className="w-full flex flex-col gap-1">
+                          <div className={`transition-colors font-bold ${hoveredProject === project.id ? 'text-[#00ADD8]' : 'text-[#EDEDED]'}`}>
+                            NODE_{project.id.toString().padStart(2, '0')}
+                          </div>
+                          <div className={`transition-colors ${hoveredProject === project.id ? 'text-[#00ADD8]' : 'text-[#6E737D]'}`}>
+                            │
+                          </div>
+                          {project.id === 1 ? (
+                            <>
+                              <div className="flex gap-2 items-center">
+                                <span className={`transition-colors ${hoveredProject === project.id ? 'text-[#00ADD8]' : 'text-[#6E737D]'}`}>├──</span>
+                                <span className={`transition-colors ${hoveredProject === project.id ? 'text-[#EDEDED]' : 'text-[#6E737D]'}`}>Go (API/Workers)</span>
+                              </div>
+                              <div className="flex gap-2 items-center">
+                                <span className={`transition-colors ${hoveredProject === project.id ? 'text-[#00ADD8]' : 'text-[#6E737D]'}`}>├──</span>
+                                <span className={`transition-colors ${hoveredProject === project.id ? 'text-[#EDEDED]' : 'text-[#6E737D]'}`}>Docker (Sandbox)</span>
+                              </div>
+                              <div className="flex gap-2 items-center">
+                                <span className={`transition-colors ${hoveredProject === project.id ? 'text-[#00ADD8]' : 'text-[#6E737D]'}`}>├──</span>
+                                <span className={`transition-colors ${hoveredProject === project.id ? 'text-[#EDEDED]' : 'text-[#6E737D]'}`}>Redis (Queue)</span>
+                              </div>
+                              <div className="flex gap-2 items-center">
+                                <span className={`transition-colors ${hoveredProject === project.id ? 'text-[#00ADD8]' : 'text-[#6E737D]'}`}>└──</span>
+                                <span className={`transition-colors ${hoveredProject === project.id ? 'text-[#EDEDED]' : 'text-[#6E737D]'}`}>PostgreSQL (State)</span>
+                              </div>
+                            </>
+                          ) : (
+                            <>
+                              <div className="flex gap-2 items-center">
+                                <span className={`transition-colors ${hoveredProject === project.id ? 'text-[#00ADD8]' : 'text-[#6E737D]'}`}>├──</span>
+                                <span className={`transition-colors ${hoveredProject === project.id ? 'text-[#EDEDED]' : 'text-[#6E737D]'}`}>React (UI)</span>
+                              </div>
+                              <div className="flex gap-2 items-center">
+                                <span className={`transition-colors ${hoveredProject === project.id ? 'text-[#00ADD8]' : 'text-[#6E737D]'}`}>├──</span>
+                                <span className={`transition-colors ${hoveredProject === project.id ? 'text-[#EDEDED]' : 'text-[#6E737D]'}`}>Node.js (API)</span>
+                              </div>
+                              <div className="flex gap-2 items-center">
+                                <span className={`transition-colors ${hoveredProject === project.id ? 'text-[#00ADD8]' : 'text-[#6E737D]'}`}>└──</span>
+                                <span className={`transition-colors ${hoveredProject === project.id ? 'text-[#EDEDED]' : 'text-[#6E737D]'}`}>PostgreSQL (DB)</span>
+                              </div>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* METRIC VISUALIZATION for Project 02 */}
+                    {project.type === 'metric' && (
+                      <div className="flex flex-col items-start font-mono mt-auto pt-4 border-t border-[#222222]">
+                        <span className="text-[#6E737D] text-xs">COMPRESSION</span>
+                        <span className={`text-5xl font-bold transition-colors ${hoveredProject === project.id ? 'text-[#00ADD8]' : 'text-[#EDEDED]'}`}>
+                          45%
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* ACTION LINKS */}
+                  <div className="flex justify-end gap-4 border-t border-[#222222] p-4 font-mono text-xs mt-auto bg-[#0A0A0C]">
+                    {project.links.repo && (
+                      <a href={project.links.repo} target="_blank" rel="noreferrer" className="text-[#6E737D] hover:text-[#00ADD8] transition-colors z-10 flex items-center gap-1">
+                        [ REPOSITORY ↗ ]
+                      </a>
+                    )}
+                    {project.links.demo && (
+                      <a href={project.links.demo} target="_blank" rel="noreferrer" className="text-[#6E737D] hover:text-[#00ADD8] transition-colors z-10 flex items-center gap-1">
+                        [ LIVE DEMO ↗ ]
+                      </a>
+                    )}
+                  </div>
+
+                  {/* Corner brackets */}
+                  <div className={`absolute top-0 left-0 w-2 h-2 border-t border-l transition-colors ${hoveredProject === project.id ? 'border-[#00ADD8]' : 'border-transparent'}`}></div>
+                  <div className={`absolute bottom-0 right-0 w-2 h-2 border-b border-r transition-colors ${hoveredProject === project.id ? 'border-[#00ADD8]' : 'border-transparent'}`}></div>
+                </div>
+              );
+            })}
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* PAGINATION CONTROLS */}
+      {totalPages > 1 && (
+        <div className="flex justify-center items-center gap-6 mt-4 font-mono text-xs border border-[#222222] bg-[#0A0A0C] py-3 max-w-full md:max-w-[400px] mx-auto w-full">
+          <button 
+            onClick={handlePrev}
+            disabled={currentPage === 1}
+            className="text-[#6E737D] hover:text-[#00ADD8] disabled:opacity-30 disabled:hover:text-[#6E737D] transition-colors flex items-center gap-2 cursor-pointer disabled:cursor-not-allowed"
+          >
+            <span>[ &larr; PREV ]</span>
+          </button>
+          
+          <span className="text-[#EDEDED]">
+            PAGE {currentPage.toString().padStart(2, '0')} / {totalPages.toString().padStart(2, '0')}
+          </span>
+
+          <button 
+            onClick={handleNext}
+            disabled={currentPage === totalPages}
+            className="text-[#6E737D] hover:text-[#00ADD8] disabled:opacity-30 disabled:hover:text-[#6E737D] transition-colors flex items-center gap-2 cursor-pointer disabled:cursor-not-allowed"
+          >
+            <span>[ NEXT &rarr; ]</span>
+          </button>
+        </div>
+      )}
+    </section>
   );
 };
 

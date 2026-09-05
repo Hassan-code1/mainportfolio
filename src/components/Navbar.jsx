@@ -1,97 +1,161 @@
-import React, { useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
-import { Menu, X, Home, Code, FolderGit2, Mail } from "lucide-react";
-import TrueFocus from './utils/TrueFocus';
-import ThemeToggle from './utils/ThemeToggle';
+import React, { useState, useEffect } from 'react';
+
+const navItems = [
+  { id: 'about', label: 'IDENTITY', short: 'ABOUT' },
+  { id: 'terminal', label: 'SESSION', short: 'TERM' },
+  { id: 'education', label: 'NODES', short: 'EDU' },
+  { id: 'projects', label: 'WORK', short: 'WORK' },
+  { id: 'skills', label: 'DEPENDENCIES', short: 'STACK' },
+  { id: 'logs', label: 'LOGS', short: 'LOGS' },
+  { id: 'contact', label: 'CONTACT', short: 'PING' },
+];
+
+const BOOT_TIME = new Date('2026-09-04T00:00:00Z').getTime();
 
 const Navbar = () => {
-    const [isMenuOpen, setMenuOpen] = useState(false);
-    const [activeTab, setActiveTab] = useState('about');
-    const LogoRef = useRef(null);
+  const [uptime, setUptime] = useState(() => Math.floor((Date.now() - BOOT_TIME) / 1000));
+  const [activeSection, setActiveSection] = useState('01_IDENTITY');
+  const [isOpen, setIsOpen] = useState(false);
 
-    useEffect(()=>{
-        gsap.fromTo(LogoRef.current,
-            { opacity: 0.5 },
-            { duration: 1, ease: "power1.in", opacity: 1 }
-        );
+  useEffect(() => {
+    // Real uptime calculation
+    const interval = setInterval(() => {
+      setUptime(Math.floor((Date.now() - BOOT_TIME) / 1000));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
-        // Simple scroll spy to update active tab on mobile
-        const handleScroll = () => {
-          const sections = ['about', 'skills', 'projects', 'contact'];
-          const scrollPos = window.scrollY + window.innerHeight / 2;
-          
-          for (const section of sections) {
-            const el = document.getElementById(section);
-            if (el && el.offsetTop <= scrollPos && (el.offsetTop + el.offsetHeight) > scrollPos) {
-              setActiveTab(section);
-              break;
-            }
+  useEffect(() => {
+    const sections = [
+      { id: 'about', name: '01_IDENTITY' },
+      { id: 'terminal', name: '02_TERMINAL_SESSION' },
+      { id: 'education', name: '03_EDUCATION_NODES' },
+      { id: 'projects', name: '04_ARCHITECTURE_NODES' },
+      { id: 'skills', name: '05_SYSTEM_DEPENDENCIES' },
+      { id: 'logs', name: '06_LIVE_SERVER_LOGS' },
+      { id: 'contact', name: '07_CONTACT_NODE' },
+    ];
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const section = sections.find((s) => s.id === entry.target.id);
+            if (section) setActiveSection(section.name);
           }
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    },[])
-
-    const toggleMenu = () => {
-        setMenuOpen(!isMenuOpen);
-    }
-
-    return (
-      <>
-        {/* Desktop Navbar */}
-        <div className="navbar hidden md:flex">
-          <div className="navbar-logo">
-            <a ref={LogoRef} href="#about">
-              <TrueFocus className="true-focus" sentence="Hassan Khan" manualMode={false} blurAmount={2} borderColor="rgb(82,39,255)" glowColor="rgba(0, 255, 0, 0.6)" pauseBetweenAnimations={1.5} />
-            </a>
-          </div>
-          <div className="nav-links flex">
-            <a href="#about" className="nav-link" onClick={() => setMenuOpen(false)}>About</a>
-            <a href="#projects" className="nav-link" onClick={() => setMenuOpen(false)}>Projects</a>
-            <a href="#skills" className="nav-link" onClick={() => setMenuOpen(false)}>Skills</a>
-            <a href="#contact" className="nav-link" onClick={() => setMenuOpen(false)}>Contact</a>
-            <div className="ml-4 flex items-center">
-              <ThemeToggle />
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile App-Style Bottom Navbar */}
-        <div className="md:hidden fixed bottom-0 left-0 w-full z-50 backdrop-blur-xl border-t pb-safe"
-             style={{ backgroundColor: 'var(--bg-surface)', borderTopColor: 'var(--border-subtle)' }}>
-          <div className="flex justify-around items-center px-2 py-3">
-            <a href="#about" onClick={() => setActiveTab('about')} className={`flex flex-col items-center gap-1 transition-all duration-300 w-12 ${activeTab === 'about' ? 'text-[var(--accent-primary)] -translate-y-1' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'}`}>
-              <Home size={22} className={activeTab === 'about' ? 'drop-shadow-[0_0_8px_var(--accent-primary)]' : ''} />
-              <span className="font-mono text-[9px] font-medium">Hero</span>
-              {activeTab === 'about' && <div className="absolute -bottom-2 w-1 h-1 rounded-full" style={{ backgroundColor: 'var(--accent-primary)', boxShadow: '0 0 8px var(--accent-primary)' }} />}
-            </a>
-            
-            <a href="#skills" onClick={() => setActiveTab('skills')} className={`flex flex-col items-center gap-1 transition-all duration-300 w-12 ${activeTab === 'skills' ? 'text-[var(--accent-primary)] -translate-y-1' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'}`}>
-              <Code size={22} className={activeTab === 'skills' ? 'drop-shadow-[0_0_8px_var(--accent-primary)]' : ''} />
-              <span className="font-mono text-[9px] font-medium">Skills</span>
-              {activeTab === 'skills' && <div className="absolute -bottom-2 w-1 h-1 rounded-full" style={{ backgroundColor: 'var(--accent-primary)', boxShadow: '0 0 8px var(--accent-primary)' }} />}
-            </a>
-
-            <div className="flex flex-col items-center justify-center -mt-4 w-12">
-               <ThemeToggle />
-            </div>
-
-            <a href="#projects" onClick={() => setActiveTab('projects')} className={`flex flex-col items-center gap-1 transition-all duration-300 w-12 ${activeTab === 'projects' ? 'text-[var(--accent-primary)] -translate-y-1' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'}`}>
-              <FolderGit2 size={22} className={activeTab === 'projects' ? 'drop-shadow-[0_0_8px_var(--accent-primary)]' : ''} />
-              <span className="font-mono text-[9px] font-medium">Work</span>
-              {activeTab === 'projects' && <div className="absolute -bottom-2 w-1 h-1 rounded-full" style={{ backgroundColor: 'var(--accent-primary)', boxShadow: '0 0 8px var(--accent-primary)' }} />}
-            </a>
-
-            <a href="#contact" onClick={() => setActiveTab('contact')} className={`flex flex-col items-center gap-1 transition-all duration-300 w-12 ${activeTab === 'contact' ? 'text-[var(--accent-primary)] -translate-y-1' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'}`}>
-              <Mail size={22} className={activeTab === 'contact' ? 'drop-shadow-[0_0_8px_var(--accent-primary)]' : ''} />
-              <span className="font-mono text-[9px] font-medium">Mail</span>
-              {activeTab === 'contact' && <div className="absolute -bottom-2 w-1 h-1 rounded-full" style={{ backgroundColor: 'var(--accent-primary)', boxShadow: '0 0 8px var(--accent-primary)' }} />}
-            </a>
-          </div>
-        </div>
-      </>
+        });
+      },
+      { threshold: 0.4 }
     );
-}
+
+    sections.forEach((section) => {
+      const el = document.getElementById(section.id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const formatUptime = (seconds) => {
+    const y = Math.floor(seconds / (86400 * 365));
+    const d = Math.floor((seconds % (86400 * 365)) / 86400);
+    const h = Math.floor((seconds % 86400) / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = seconds % 60;
+    
+    if (y > 0) {
+      return `${y}Y ${d}D ${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+    }
+    return `${d}D ${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  };
+
+  const scrollTo = (id) => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    setIsOpen(false);
+  };
+
+  return (
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#050505] border-b border-[#222222] px-6 py-3 font-mono text-[10px] md:text-xs uppercase tracking-wider text-[#6E737D]">
+      <div className="max-w-[1440px] mx-auto flex items-center justify-between">
+        
+        {/* LEFT */}
+        <div className="flex items-center gap-2">
+          <span className="w-2 h-2 bg-[#47A248] animate-pulse"></span>
+          <span className="text-[#47A248] font-bold tracking-tight">SYS.ONLINE</span>
+        </div>
+        
+        {/* CENTER (Desktop) */}
+        <div className="hidden lg:flex items-center gap-6 border border-[#222222] px-4 py-1.5 bg-[#0E0E11] transition-colors">
+          <div className="flex items-center gap-2">
+            <span className="text-[#00ADD8]">NODE:</span>
+            <span className="text-[#EDEDED]">PORTFOLIO</span>
+          </div>
+          <div className="w-px h-3 bg-[#222222]"></div>
+          <div className="flex items-center gap-2">
+            <span className="text-[#659AD2]">LATENCY:</span>
+            <span className="text-[#EDEDED]">SESSION</span>
+          </div>
+          <div className="w-px h-3 bg-[#222222]"></div>
+          <div className="flex items-center gap-2">
+            <span className="text-[#6E737D]">UPTIME:</span>
+            <span className="text-[#EDEDED] w-[90px]">{formatUptime(uptime)}</span>
+          </div>
+          <div className="w-px h-3 bg-[#222222]"></div>
+          <div className="flex items-center gap-2 min-w-[180px]">
+            <span className="text-[#6E737D]">MODULE:</span>
+            <span className="text-[#EDEDED]">{activeSection}</span>
+          </div>
+        </div>
+
+        {/* RIGHT (Desktop) */}
+        <div className="hidden lg:flex items-center gap-6">
+          {navItems.map((item, i) => (
+            <button 
+              key={item.id} 
+              onClick={() => scrollTo(item.id)}
+              className="text-[#6E737D] hover:text-[#00ADD8] transition-colors cursor-crosshair group"
+            >
+              <span className="opacity-50 mr-1 group-hover:opacity-100 transition-opacity">[{String(i + 1).padStart(2, '0')}]</span>
+              {item.short}
+            </button>
+          ))}
+        </div>
+
+        {/* MOBILE MENU TOGGLE */}
+        <div className="lg:hidden">
+          <button 
+            onClick={() => setIsOpen(!isOpen)}
+            className="text-[#EDEDED] border border-[#222222] px-3 py-1 hover:border-[#00ADD8] hover:text-[#00ADD8] transition-colors"
+          >
+            [ MENU ]
+          </button>
+        </div>
+      </div>
+
+      {/* MOBILE MENU DROPDOWN */}
+      {isOpen && (
+        <div className="lg:hidden absolute top-full left-0 right-0 bg-[#0E0E11] border-b border-[#222222] flex flex-col p-4 gap-4 shadow-xl">
+          <div className="flex flex-col gap-2 border-b border-[#222222] pb-4">
+            <div className="flex justify-between"><span>NODE:</span><span className="text-[#EDEDED]">PORTFOLIO</span></div>
+            <div className="flex justify-between"><span>UPTIME:</span><span className="text-[#EDEDED]">{formatUptime(uptime)}</span></div>
+            <div className="flex justify-between"><span>MODULE:</span><span className="text-[#EDEDED] truncate max-w-[200px] text-right">{activeSection}</span></div>
+          </div>
+          <div className="flex flex-col gap-4 pt-2">
+            {navItems.map((item, i) => (
+              <button 
+                key={item.id} 
+                onClick={() => scrollTo(item.id)}
+                className="text-left text-[#EDEDED] hover:text-[#00ADD8] transition-colors"
+              >
+                <span className="text-[#6E737D] mr-2">[{String(i + 1).padStart(2, '0')}]</span> {item.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </nav>
+  );
+};
 
 export default Navbar;

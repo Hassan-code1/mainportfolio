@@ -1,79 +1,63 @@
-/* SkillStackGame Theme Definitions */
+/* SkillStackGame Theme Definitions - Datacenter Dark */
 
 /* ── Container ── */
 .ssg-container {
-  background-color: #f8fafc; /* slate-50 */
-  border: 1px solid #e2e8f0; /* slate-200 */
-  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
-}
-html.dark .ssg-container {
-  background-color: #020617; /* slate-950 */
-  border-color: transparent;
-  box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.8);
+  background-color: var(--bg-primary, #050505);
+  border: 1px solid var(--border-subtle, #222222);
 }
 
 /* ── Grid Pattern ── */
 .ssg-grid {
-  background-image: radial-gradient(circle at 1px 1px, #e2e8f0 1px, transparent 0);
-}
-html.dark .ssg-grid {
-  background-image: radial-gradient(circle at 1px 1px, #1e293b 1px, transparent 0);
-}
-
-/* ── Start Overlay ── */
-.ssg-overlay-start {
-  background-color: rgba(248, 250, 252, 0.85); /* slate-50/85 */
-}
-html.dark .ssg-overlay-start {
-  background-color: rgba(2, 6, 23, 0.8); /* slate-950/80 */
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
 }
 
-/* ── Game Over Overlay ── */
-.ssg-overlay-fail {
-  background-color: rgba(254, 242, 242, 0.95); /* red-50/95 */
-}
-html.dark .ssg-overlay-fail {
-  background-color: rgba(69, 10, 10, 0.9); /* red-950/90 */
-}
-
-/* ── Victory Overlay ── */
+/* ── Overlays ── */
+.ssg-overlay-start,
+.ssg-overlay-fail,
 .ssg-overlay-win {
-  background-color: rgba(240, 253, 244, 0.95); /* green-50/95 */
-}
-html.dark .ssg-overlay-win {
-  background-color: rgba(5, 46, 22, 0.9); /* green-950/90 */
+  background-color: rgba(5, 5, 5, 0.95);
+  border: 1px solid var(--border-subtle, #222222);
 }
 
 /* ── Typography ── */
-.ssg-title-start { color: #0f172a; } /* slate-900 */
-html.dark .ssg-title-start { color: #ffffff; }
+.ssg-title-start,
+.ssg-title-fail,
+.ssg-title-win { 
+  color: var(--text-primary, #EDEDED); 
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
 
-.ssg-desc-start { color: #475569; } /* slate-600 */
-html.dark .ssg-desc-start { color: #cbd5e1; } /* slate-300 */
-
-.ssg-title-fail { color: #450a0a; } /* red-950 */
-html.dark .ssg-title-fail { color: #ffffff; }
-
-.ssg-desc-fail { color: #991b1b; } /* red-800 */
-html.dark .ssg-desc-fail { color: #e2e8f0; } /* slate-200 */
-
-.ssg-title-win { color: #052e16; } /* green-950 */
-html.dark .ssg-title-win { color: #ffffff; }
-
-.ssg-desc-win { color: #166534; } /* green-800 */
-html.dark .ssg-desc-win { color: #e2e8f0; } /* slate-200 */
+.ssg-desc-start,
+.ssg-desc-fail,
+.ssg-desc-win { 
+  color: var(--text-secondary, #6E737D); 
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+}
 
 /* ── Buttons ── */
-.ssg-btn-fail {
-  background-color: #ffffff;
-  color: #dc2626; /* red-600 */
+.ssg-btn-fail,
+.ssg-btn-win,
+.ssg-btn-start {
+  background-color: var(--bg-primary, #050505);
+  border: 1px solid var(--border-subtle, #222222);
+  color: var(--text-secondary, #6E737D);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  border-radius: 0;
+  text-transform: uppercase;
 }
-.ssg-btn-fail:hover { background-color: #f1f5f9; } /* slate-100 */
-html.dark .ssg-btn-fail:hover { background-color: #e2e8f0; } /* slate-200 */
 
-.ssg-btn-win {
-  background-color: #ffffff;
-  color: #15803d; /* green-700 */
+.ssg-btn-fail:hover { 
+  border-color: #DC2626; 
+  color: #DC2626;
+  box-shadow: 0 0 10px rgba(220, 38, 38, 0.2);
 }
-.ssg-btn-win:hover { background-color: #f1f5f9; } /* slate-100 */
-html.dark .ssg-btn-win:hover { background-color: #e2e8f0; } /* slate-200 */
+
+.ssg-btn-win:hover, .ssg-btn-start:hover { 
+  border-color: var(--accent-green, #47A248);
+  color: var(--accent-green, #47A248);
+  box-shadow: 0 0 10px rgba(71, 162, 72, 0.2);
+}

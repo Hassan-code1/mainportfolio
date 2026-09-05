@@ -1,10 +1,24 @@
-.app{
+.app {
     background-color: var(--bg-primary);
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     width: 100vw;
-    max-width: 100vw;
+    min-height: 100vh;
     overflow-x: hidden;
+    position: relative;
+}
+
+/* Specific Grid Background for the telemetry dashboard */
+.telemetry-grid-bg {
+    background-size: 40px 40px;
+    background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    pointer-events: none;
 }

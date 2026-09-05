@@ -157,7 +157,7 @@ export default function SkillStackGame() {
   return (
     <div className="relative w-full max-w-lg mx-auto">
       {/* Header Info */}
-      <div className="flex justify-between items-center mb-2 px-1">
+      <div className="flex justify-between items-center mb-2 px-1 flex-shrink-0">
         <span className="font-mono text-xs text-[var(--accent-primary)] uppercase tracking-widest font-bold">
           Level {currentLevel}/{SKILLS.length}
         </span>
@@ -168,7 +168,7 @@ export default function SkillStackGame() {
       
       {/* Game Container */}
       <div 
-        className="relative w-full h-[500px] rounded-2xl overflow-hidden cursor-pointer transition-colors duration-300 ssg-container"
+        className="relative w-full h-[400px] md:h-[500px] rounded-none overflow-hidden cursor-pointer transition-colors duration-300 ssg-container"
         onClick={handleDrop}
       >
         {/* Background Grid Pattern */}
@@ -180,7 +180,7 @@ export default function SkillStackGame() {
         {placedBlocks.map((block, i) => (
           <div 
             key={i} 
-            className={`absolute h-12 ${block.color} flex items-center justify-center rounded-sm border-t border-white/20 border-b-4 border-black/30 shadow-lg`}
+            className={`absolute h-12 ${block.color} flex items-center justify-center rounded-none border border-[#222222]`}
             style={{
               width: `${block.width}%`,
               left: `${block.x}%`,
@@ -195,7 +195,7 @@ export default function SkillStackGame() {
         {/* Moving / Dropping Active Block */}
         {(gameState === 'playing' || gameState === 'dropping') && currentLevel < SKILLS.length && (
           <div 
-            className={`absolute h-12 ${SKILLS[currentLevel].color} flex items-center justify-center rounded-sm shadow-[0_0_20px_rgba(255,255,255,0.2)] border-t border-white/30 border-b-4 border-black/30 z-10 transition-none`}
+            className={`absolute h-12 ${SKILLS[currentLevel].color} flex items-center justify-center rounded-none border border-[#EDEDED] z-10 transition-none`}
             style={{
               width: `${SKILLS[currentLevel].width}%`,
               left: `${movingLeft}%`,
@@ -212,8 +212,8 @@ export default function SkillStackGame() {
         {/* Start Overlay */}
         {gameState === 'start' && (
           <div className="absolute inset-0 backdrop-blur-md flex flex-col items-center justify-center z-20 transition-all ssg-overlay-start">
-            <div className="w-16 h-16 mb-4 rounded-xl bg-gradient-to-tr from-blue-600 to-purple-600 flex items-center justify-center shadow-lg shadow-purple-500/20">
-               <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="w-16 h-16 mb-4 border border-[#00ADD8] bg-[#0E0E11] flex items-center justify-center shadow-[0_0_15px_rgba(0,173,216,0.15)] rounded-none">
+               <svg className="w-8 h-8 text-[#00ADD8]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
                </svg>
             </div>
@@ -223,9 +223,9 @@ export default function SkillStackGame() {
             </p>
             <button 
               onClick={(e) => { e.stopPropagation(); startGame(); }} 
-              className="px-8 py-3 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] hover:scale-105 active:scale-95 text-white rounded-full font-bold transition-all shadow-lg shadow-[var(--accent-primary)]/30"
+              className="px-8 py-3 ssg-btn-start transition-all"
             >
-              Start Game
+              [ START_GAME ]
             </button>
           </div>
         )}
@@ -237,9 +237,9 @@ export default function SkillStackGame() {
             <p className="mb-8 font-mono text-sm ssg-desc-fail">Stack fell at Level {currentLevel}</p>
             <button 
               onClick={(e) => { e.stopPropagation(); startGame(); }} 
-              className="px-8 py-3 hover:scale-105 active:scale-95 rounded-full font-bold transition-all shadow-xl ssg-btn-fail"
+              className="px-8 py-3 transition-all ssg-btn-fail"
             >
-              Try Again
+              [ RETRY_STACK ]
             </button>
           </div>
         )}
@@ -252,9 +252,9 @@ export default function SkillStackGame() {
             <p className="mb-8 font-mono text-sm ssg-desc-win">You built the complete stack.</p>
             <button 
               onClick={(e) => { e.stopPropagation(); startGame(); }} 
-              className="px-8 py-3 hover:scale-105 active:scale-95 rounded-full font-bold transition-all shadow-xl ssg-btn-win"
+              className="px-8 py-3 transition-all ssg-btn-win"
             >
-              Rebuild
+              [ REBUILD_STACK ]
             </button>
           </div>
         )}

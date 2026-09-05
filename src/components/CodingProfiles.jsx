@@ -79,7 +79,7 @@ export default function CodingProfiles() {
           <div className="cp-card">
             <div className="cp-card-header">
               <span className="cp-platform-name">LeetCode</span>
-              <a href="https://leetcode.com/u/uKmlMzaX5j/" target="_blank" rel="noopener noreferrer" className="cp-link-btn">
+              <a href={import.meta.env.VITE_LEETCODE_URL} target="_blank" rel="noopener noreferrer" className="cp-link-btn">
                 <FontAwesomeIcon icon={faUpRightFromSquare} />
               </a>
             </div>
@@ -156,13 +156,13 @@ export default function CodingProfiles() {
           <div className="cp-card cp-codolio-card">
             <div className="cp-card-header">
               <span className="cp-platform-name text-gradient">Codolio</span>
-              <a href="https://codolio.com/profile/hassansindhi" target="_blank" rel="noopener noreferrer" className="cp-link-btn">
+              <a href={import.meta.env.VITE_CODOLIO_URL} target="_blank" rel="noopener noreferrer" className="cp-link-btn">
                 <FontAwesomeIcon icon={faUpRightFromSquare} />
               </a>
             </div>
             <div className="flex flex-col items-center justify-center flex-grow py-6 text-center z-10">
               <p className="text-[var(--text-secondary)] font-medium mb-6">View my complete aggregated competitive programming statistics, daily streak, and global ranking.</p>
-              <a href="https://codolio.com/profile/hassansindhi" target="_blank" rel="noopener noreferrer" className="px-6 py-2.5 bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] rounded-full text-white font-medium hover:shadow-[0_0_20px_var(--accent-primary)] hover:scale-105 transition-all cursor-none border border-white/10">
+              <a href={import.meta.env.VITE_CODOLIO_URL} target="_blank" rel="noopener noreferrer" className="px-6 py-2.5 bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] rounded-full text-white font-medium hover:shadow-[0_0_20px_var(--accent-primary)] hover:scale-105 transition-all cursor-none border border-white/10">
                 View Codolio Profile
               </a>
             </div>
