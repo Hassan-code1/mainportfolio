@@ -7,28 +7,31 @@ const dependencies = [
   {
     category: "CORE",
     skills: [
-      { name: "C++", uses: "Huffman Compression CLI", related: ["Algorithms"] },
-      { name: "Go", uses: "Distributed Code Execution Engine", related: ["Docker", "Redis", "PostgreSQL"] },
-      { name: "TypeScript", uses: "Workspace SaaS Engine", related: ["React", "Node"] },
+      { name: "C++", uses: "Text Compression Engine (Huffman)", related: ["Algorithms", "Bit-level I/O"] },
+      { name: "Go", uses: "Codzer Execution Engine", related: ["Docker", "PostgreSQL", "Go Channels"] },
+      { name: "Node.js", uses: "Text Compression API, Queue Cure, Workspace", related: ["Express.js", "JavaScript", "TypeScript"] },
+      { name: "Express.js", uses: "Text Compression API, Queue Cure Backend", related: ["Node.js", "REST APIs", "Socket.io"] },
+      { name: "TypeScript", uses: "Queue Cure, Codzer, Workspace", related: ["React", "Node.js"] },
       { name: "JavaScript", uses: "Various Modules", related: ["React", "HTML/CSS"] },
-      { name: "Python", uses: "Data Scripts", related: ["SQL"] }
+      { name: "Python", uses: "Codzer Submissions, Data Scripts", related: ["Docker", "SQL"] }
     ]
   },
   {
     category: "DATA",
     skills: [
-      { name: "PostgreSQL", uses: "Workspace, Judger Engine", related: ["Go", "Prisma"] },
-      { name: "Redis", uses: "Distributed Code Execution Engine", related: ["Go", "Docker"] },
-      { name: "MongoDB", uses: "Legacy Projects", related: ["Node"] },
-      { name: "Prisma", uses: "Workspace SaaS Engine", related: ["PostgreSQL", "TypeScript"] },
-      { name: "SQL", uses: "General Data Layers", related: ["PostgreSQL"] }
+      { name: "PostgreSQL", uses: "Codzer, Queue Cure, Workspace", related: ["Prisma", "Go", "SQL"] },
+      { name: "Prisma", uses: "Queue Cure, Workspace SaaS", related: ["PostgreSQL", "TypeScript"] },
+      { name: "Redis", uses: "Distributed Execution & Caching", related: ["Go", "Docker"] },
+      { name: "MongoDB", uses: "Legacy Projects", related: ["Node.js"] },
+      { name: "SQL", uses: "Atomic Transactions, Queries", related: ["PostgreSQL"] }
     ]
   },
   {
     category: "INFRA",
     skills: [
-      { name: "Docker", uses: "Distributed Code Execution Engine", related: ["Go", "Linux"] },
-      { name: "Nginx", uses: "Load Balancing", related: ["Linux", "Docker"] },
+      { name: "Docker", uses: "Codzer Sandbox, Nginx Load Balancer", related: ["Moby SDK", "Go", "Linux"] },
+      { name: "Nginx", uses: "Text Compression Load Balancer", related: ["Docker", "Linux", "HTTPS Proxy"] },
+      { name: "Socket.io", uses: "Queue Cure Real-Time Sync", related: ["WebSockets", "Node.js", "React"] },
       { name: "Linux", uses: "Deployment Servers", related: ["Docker", "Git"] },
       { name: "Git", uses: "Version Control", related: ["All Projects"] }
     ]
@@ -36,10 +39,11 @@ const dependencies = [
   {
     category: "FRONTEND",
     skills: [
-      { name: "React", uses: "Workspace SaaS Engine, Portfolio", related: ["Tailwind CSS", "Framer Motion"] },
-      { name: "Next.js", uses: "SSR Projects", related: ["React"] },
-      { name: "Tailwind CSS", uses: "Portfolio", related: ["React"] },
+      { name: "React", uses: "Queue Cure, Text Compressor, Portfolio", related: ["Tailwind CSS", "GSAP", "TypeScript"] },
+      { name: "GSAP", uses: "Text Compression Binary Tree Visualizer", related: ["React", "Animation"] },
+      { name: "Tailwind CSS", uses: "Portfolio UI", related: ["React"] },
       { name: "Framer Motion", uses: "Portfolio Animation", related: ["React"] },
+      { name: "Next.js", uses: "SSR Projects", related: ["React"] },
       { name: "Three.js", uses: "Visualizations", related: ["JavaScript"] }
     ]
   }
@@ -127,7 +131,8 @@ const Skills = () => {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => setShowGame(true)}
-              className="w-full py-4 border border-[#00ADD8] bg-[#0E0E11] text-[#00ADD8] font-mono text-sm hover:shadow-[0_0_15px_rgba(0,173,216,0.3)] transition-all flex items-center justify-center gap-2 group"
+              // className="w-full py-4 border border-[#00ADD8] bg-[#0E0E11] text-[#00ADD8] font-mono text-sm hover:shadow-[0_0_15px_rgba(0,173,216,0.3)] transition-all flex items-center justify-center gap-2 group"
+              className="w-full py-4 border border-[#00ADD8] bg-[#0E0E11] text-[#00ADD8] font-mono text-sm hover:shadow-[0_0_15px_rgba(0,173,216,0.3)] transition-all flex items-center justify-center gap-2 group cursor-pointer"
             >
               [ PLAY SKILLSTACK <span className="group-hover:translate-x-1 transition-transform">→</span> ]
             </motion.button>
@@ -176,7 +181,8 @@ const Skills = () => {
                 <span className="font-mono text-xs text-[#659AD2]">SKILLSTACK_ENGINE.exe</span>
                 <button 
                   onClick={() => setShowGame(false)}
-                  className="font-mono text-xs text-[#DC2626] hover:text-white transition-colors"
+                  // className="font-mono text-xs text-[#DC2626] hover:text-white transition-colors"
+                  className="font-mono text-xs text-[#DC2626] hover:text-white transition-colors cursor-pointer"
                 >
                   [ X ]
                 </button>

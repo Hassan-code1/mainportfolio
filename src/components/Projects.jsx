@@ -5,24 +5,31 @@ import SectionHeader from './SectionHeader';
 const projects = [
   {
     id: 1,
-    name: "Distributed Code Execution Engine",
-    status: "DEPLOYED",
-    latency: "12ms",
-    stack: ["Go", "Docker", "Redis", "Postgres"],
+    name: "Codzer (Distributed Code Execution Engine)",
+    status: "STABLE",
+    latency: "<500ms",
+    stack: ["Go", "PostgreSQL", "Docker", "React", "TypeScript"],
     tags: ["GO", "BACKEND", "SYSTEMS"],
-    description: "A highly scalable, containerized execution environment for running untrusted user code safely with bounded resources.",
-    links: { repo: `${import.meta.env.VITE_GITHUB_URL}/judger` },
+    description: "Distributed online code execution platform evaluating C++ and Python submissions in isolated Docker sandboxes via fixed worker pools, buffered Go channels, and Moby Docker Go SDK with strict CPU/RAM limits.",
+    links: { repo: "https://github.com/Hassan-code1/Codzer" },
     type: "architectural"
   },
   {
     id: 2,
-    name: "Huffman Compression CLI",
-    status: "STABLE",
+    name: "Text Compression Web App & Load Balancer",
+    status: "LIVE",
     latency: "O(n log n)",
-    stack: ["C++", "Algorithms"],
-    tags: ["C++", "SYSTEMS"],
-    description: "High-performance text compression tool reducing payload size using optimized Huffman coding trees.",
-    links: { repo: `${import.meta.env.VITE_GITHUB_URL}/huffman` },
+    stack: ["React.js", "Node.js", "C++", "Nginx", "Docker"],
+    tags: ["C++", "SYSTEMS", "BACKEND", "FULLSTACK"],
+    description: "High-performance text compression API and responsive web application using Node.js, Express, custom C++ bit-level Huffman algorithm, Dockerized Nginx load balancer, and GSAP binary tree visualizations.",
+    links: { 
+      demo: import.meta.env.VITE_COMPRESSOR_FRONTEND || "https://text-compressor-frontend.vercel.app",
+      repos: [
+        { label: "FRONTEND", url: "https://github.com/Hassan-code1/text_compressor_frontend" },
+        { label: "BACKEND", url: "https://github.com/Hassan-code1/text_compressor_backend" },
+        { label: "LOAD_BALANCER", url: "https://github.com/Hassan-code1/text_compressor_nginxAsLoadBalancer" }
+      ]
+    },
     type: "metric"
   },
   {
@@ -33,18 +40,29 @@ const projects = [
     stack: ["React", "Node", "Postgres", "Prisma"],
     tags: ["FULLSTACK", "BACKEND"],
     description: "A collaborative workspace platform featuring real-time state synchronization and advanced role-based access control.",
-    links: { repo: `${import.meta.env.VITE_GITHUB_URL}/workspace` },
+    links: { repo: "https://github.com/Hassan-code1/NexusHub" },
     type: "standard"
   },
   {
     id: 4,
+    name: "Queue Cure '26",
+    status: "STABLE",
+    latency: "<1s",
+    stack: ["TypeScript", "React.js", "Node.js", "Express.js", "PostgreSQL", "Prisma", "Socket.io"],
+    tags: ["FULLSTACK", "BACKEND"],
+    description: "Real-time clinic queue management platform synchronizing receptionist dashboards and patient displays with sub-second latency, Inter-Call Delta dynamic wait prediction, and concurrency-safe Prisma transactions.",
+    links: { repo: "https://github.com/Hassan-code1/queuecure" },
+    type: "architectural"
+  },
+  {
+    id: 5,
     name: "Daily Tasks Scheduling Website",
     status: "ARCHIVED",
     latency: "80ms",
     stack: ["React", "Node", "Postgres"],
     tags: ["FULLSTACK"],
     description: "A task scheduling web application focused on organizing daily tasks and managing personal productivity workflows.",
-    links: { repo: `${import.meta.env.VITE_GITHUB_URL}/daily-tasks` },
+    links: { repo: `${import.meta.env.VITE_GITHUB_URL || "https://github.com/Hassan-code1"}/daily-tasks` },
     type: "architectural"
   }
 ];
@@ -117,7 +135,7 @@ const Projects = () => {
             className="grid grid-cols-1 lg:grid-cols-2 gap-6"
           >
             {paginatedProjects.map((project, idx) => {
-              const isWide = idx === 0 || paginatedProjects.length === 1;
+              const isWide = (idx === 0 && paginatedProjects.length !== 2) || paginatedProjects.length === 1;
               return (
                 <div 
                   key={project.id}
@@ -164,7 +182,7 @@ const Projects = () => {
                       </div>
                     </div>
 
-                    {/* ARCHITECTURE VISUALIZATION for Project 01 & 04 */}
+                    {/* ARCHITECTURE VISUALIZATION for Project 01, 04, 05 */}
                     {project.type === 'architectural' && (
                       <div className="md:w-1/3 flex flex-col items-start justify-center font-mono text-xs text-[#6E737D] border-t md:border-t-0 md:border-l border-[#222222] pt-6 md:pt-0 pl-4 md:pl-8">
                         <div className="w-full flex flex-col gap-1">
@@ -174,7 +192,7 @@ const Projects = () => {
                           <div className={`transition-colors ${hoveredProject === project.id ? 'text-[#00ADD8]' : 'text-[#6E737D]'}`}>
                             │
                           </div>
-                          {project.id === 1 ? (
+                          {project.id === 1 && (
                             <>
                               <div className="flex gap-2 items-center">
                                 <span className={`transition-colors ${hoveredProject === project.id ? 'text-[#00ADD8]' : 'text-[#6E737D]'}`}>├──</span>
@@ -187,13 +205,35 @@ const Projects = () => {
                               <div className="flex gap-2 items-center">
                                 <span className={`transition-colors ${hoveredProject === project.id ? 'text-[#00ADD8]' : 'text-[#6E737D]'}`}>├──</span>
                                 <span className={`transition-colors ${hoveredProject === project.id ? 'text-[#EDEDED]' : 'text-[#6E737D]'}`}>Redis (Queue)</span>
+                                <span className={`transition-colors ${hoveredProject === project.id ? 'text-[#EDEDED]' : 'text-[#6E737D]'}`}>Buffered Channels</span>
                               </div>
                               <div className="flex gap-2 items-center">
                                 <span className={`transition-colors ${hoveredProject === project.id ? 'text-[#00ADD8]' : 'text-[#6E737D]'}`}>└──</span>
                                 <span className={`transition-colors ${hoveredProject === project.id ? 'text-[#EDEDED]' : 'text-[#6E737D]'}`}>PostgreSQL (State)</span>
                               </div>
                             </>
-                          ) : (
+                          )}
+                          {project.id === 4 && (
+                            <>
+                              <div className="flex gap-2 items-center">
+                                <span className={`transition-colors ${hoveredProject === project.id ? 'text-[#00ADD8]' : 'text-[#6E737D]'}`}>├──</span>
+                                <span className={`transition-colors ${hoveredProject === project.id ? 'text-[#EDEDED]' : 'text-[#6E737D]'}`}>React & TypeScript</span>
+                              </div>
+                              <div className="flex gap-2 items-center">
+                                <span className={`transition-colors ${hoveredProject === project.id ? 'text-[#00ADD8]' : 'text-[#6E737D]'}`}>├──</span>
+                                <span className={`transition-colors ${hoveredProject === project.id ? 'text-[#EDEDED]' : 'text-[#6E737D]'}`}>Socket.io (Realtime)</span>
+                              </div>
+                              <div className="flex gap-2 items-center">
+                                <span className={`transition-colors ${hoveredProject === project.id ? 'text-[#00ADD8]' : 'text-[#6E737D]'}`}>├──</span>
+                                <span className={`transition-colors ${hoveredProject === project.id ? 'text-[#EDEDED]' : 'text-[#6E737D]'}`}>Prisma $transactions</span>
+                              </div>
+                              <div className="flex gap-2 items-center">
+                                <span className={`transition-colors ${hoveredProject === project.id ? 'text-[#00ADD8]' : 'text-[#6E737D]'}`}>└──</span>
+                                <span className={`transition-colors ${hoveredProject === project.id ? 'text-[#EDEDED]' : 'text-[#6E737D]'}`}>PostgreSQL (Clinic DB)</span>
+                              </div>
+                            </>
+                          )}
+                          {project.id === 5 && (
                             <>
                               <div className="flex gap-2 items-center">
                                 <span className={`transition-colors ${hoveredProject === project.id ? 'text-[#00ADD8]' : 'text-[#6E737D]'}`}>├──</span>
@@ -225,14 +265,38 @@ const Projects = () => {
                   </div>
 
                   {/* ACTION LINKS */}
-                  <div className="flex justify-end gap-4 border-t border-[#222222] p-4 font-mono text-xs mt-auto bg-[#0A0A0C]">
-                    {project.links.repo && (
-                      <a href={project.links.repo} target="_blank" rel="noreferrer" className="text-[#6E737D] hover:text-[#00ADD8] transition-colors z-10 flex items-center gap-1">
-                        [ REPOSITORY ↗ ]
-                      </a>
+                  <div className="flex flex-wrap justify-end gap-3 border-t border-[#222222] p-4 font-mono text-xs mt-auto bg-[#0A0A0C]">
+                    {project.links.repos ? (
+                      project.links.repos.map(r => (
+                        <a 
+                          key={r.label} 
+                          href={r.url} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="text-[#6E737D] hover:text-[#00ADD8] transition-colors z-10 flex items-center gap-1 cursor-pointer"
+                        >
+                          [ {r.label} ↗ ]
+                        </a>
+                      ))
+                    ) : (
+                      project.links.repo && (
+                        <a 
+                          href={project.links.repo} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="text-[#6E737D] hover:text-[#00ADD8] transition-colors z-10 flex items-center gap-1 cursor-pointer"
+                        >
+                          [ REPOSITORY ↗ ]
+                        </a>
+                      )
                     )}
                     {project.links.demo && (
-                      <a href={project.links.demo} target="_blank" rel="noreferrer" className="text-[#6E737D] hover:text-[#00ADD8] transition-colors z-10 flex items-center gap-1">
+                      <a 
+                        href={project.links.demo} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="text-[#6E737D] hover:text-[#00ADD8] transition-colors z-10 flex items-center gap-1 cursor-pointer"
+                      >
                         [ LIVE DEMO ↗ ]
                       </a>
                     )}

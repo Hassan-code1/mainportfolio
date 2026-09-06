@@ -187,7 +187,7 @@ export default function SkillStackGame() {
               bottom: `${i * BLOCK_HEIGHT}px`,
             }}
           >
-            <img src={block.imgSrc} alt={block.name} className="w-5 h-5 mr-2 object-contain filter drop-shadow-md" />
+            <img src={block.imgSrc} alt={block.name} width="20" height="20" loading="lazy" className="w-5 h-5 mr-2 object-contain filter drop-shadow-md" />
             <span className="text-white font-bold text-sm tracking-wide drop-shadow-md">{block.name}</span>
           </div>
         ))}
@@ -204,7 +204,7 @@ export default function SkillStackGame() {
               transformOrigin: 'center'
             }}
           >
-            <img src={SKILLS[currentLevel].imgSrc} alt={SKILLS[currentLevel].name} className="w-5 h-5 mr-2 object-contain filter drop-shadow-md" />
+            <img src={SKILLS[currentLevel].imgSrc} alt={SKILLS[currentLevel].name} width="20" height="20" loading="lazy" className="w-5 h-5 mr-2 object-contain filter drop-shadow-md" />
             <span className="text-white font-bold text-sm tracking-wide drop-shadow-md">{SKILLS[currentLevel].name}</span>
           </div>
         )}

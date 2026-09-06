@@ -5,12 +5,12 @@ import SectionHeader from './SectionHeader';
 const logs = [
   { id: 1, type: "SYS_INIT", date: "2024-2028", message: "DEPENDENCY_INJECTED: B.Tech in Electronics & Communication Engineering [IIIT Kota]" },
   { id: 2, type: "INFO", date: "2025-09-01", message: "Initiated Software Engineering journey. Core modules loaded." },
-  { id: 3, type: "INFO", date: "2026-06-10", message: "C++ Huffman Compression CLI minimized payload by 45%." },
+  { id: 3, type: "INFO", date: "2026-06-10", message: "C++ Huffman Compression Web API & load balancer minimized payload by 45%." },
   { id: 4, type: "ERR", date: "2026-06-30", message: "Authentication system failure [RESOLVED]: Patched JWT token expiration bug." },
   { id: 5, type: "INFO", date: "2026-07-19", message: "Analyzed QueueCure project architecture and optimized Postgres indexing." },
   { id: 6, type: "INFO", date: "2026-08-27", message: "Implemented React Polling Orchestrator for real-time state sync." },
   { id: 7, type: "WARN", date: "2026-08-28", message: "High latency detected in worker nodes. Scaling up instance count." },
-  { id: 8, type: "INFO", date: "2026-08-30", message: "Successfully deployed Distributed Code Execution Engine in Go." },
+  { id: 8, type: "INFO", date: "2026-08-30", message: "Successfully verified Codzer (Distributed Code Execution Engine) in Go." },
 ];
 
 const Logs = () => {
